@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="头文件\config">
+      <UniqueIdentifier>{ee741440-05fc-4e05-abf0-51ad7fec9810}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\config">
+      <UniqueIdentifier>{af9d90cc-21d1-4930-8612-8971ba7b4416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\common">
+      <UniqueIdentifier>{1a34802e-45ae-4600-a70f-29295d4f7f77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\common">
+      <UniqueIdentifier>{34d063c9-b820-4582-be36-0291e25fad04}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\public.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\config\configFactory.h">
+      <Filter>头文件\config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\config\configData.h">
+      <Filter>头文件\config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\config\ConfigLoaderBase.h">
+      <Filter>头文件\config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\config\ConfigLoaders.h">
+      <Filter>头文件\config</Filter>
+    </ClInclude>
+    <ClInclude Include="include\common\xstring.h">
+      <Filter>头文件\common</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\config\configData.cpp">
+      <Filter>源文件\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\config\configFactory.cpp">
+      <Filter>源文件\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\config\configLoaderBase.cpp">
+      <Filter>源文件\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\config\configLoaders.cpp">
+      <Filter>源文件\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\xstring.cpp">
+      <Filter>源文件\common</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
