@@ -5,9 +5,6 @@
 #define _GARVIN_DATA_H_
 
 #include <public.h>
-#include <common/xstring.h>
-
-using namespace GarvinEngine::Common;
 
 /**
  * ≈‰÷√ ˝æ›¿‡
@@ -21,11 +18,11 @@ namespace GarvinEngine
 		{
 		public:
 			DataGrid();
-			DataGrid(XString key, XString value);
+			DataGrid(std::string key, std::string value);
 			virtual ~DataGrid();
 
-			XString getkey();
-			XString getvalue();
+			std::string getkey();
+			std::string getvalue();
 
 			int32 getInt32();
 			uint32 getUInt32();
@@ -37,8 +34,8 @@ namespace GarvinEngine
 			double getDouble();
 
 		private:
-			XString _key;
-			XString _value;
+			std::string _key;
+			std::string _value;
 		};
 
 		class DataRow
@@ -48,35 +45,37 @@ namespace GarvinEngine
 			DataRow();
 			virtual ~DataRow();
 
-			XString getField(uint32 index);
+			std::string getField(uint32 index);
 
-			XString getString(uint32 index);
-			XString getString(XString field);
+			std::string getString(uint32 index);
+			std::string getString(std::string field);
 
 			int32 getInt32(uint32 index);
-			int32 getInt32(XString field);
+			int32 getInt32(std::string field);
 
 			uint32 getUInt32(uint32 index);
-			uint32 getUInt32(XString field);
+			uint32 getUInt32(std::string field);
 
 			int64 getInt64(uint32 index);
-			int64 getInt64(XString field);
+			int64 getInt64(std::string field);
 
 			uint64 getUInt64(uint32 index);
-			uint64 getUInt64(XString field);
+			uint64 getUInt64(std::string field);
 
 			float getFloat(uint32 index);
-			float getFloat(XString field);
+			float getFloat(std::string field);
 
 			double getDouble(uint32 index);
-			double getDouble(XString field);
+			double getDouble(std::string field);
 
 			void add(DataGrid* grid);
+
+			uint32 count();
 
 		private:
 			
 			bool _checkRange(uint32 index);
-			XString _find(XString field);
+			std::string _find(std::string field);
 
 		private:
 			std::vector<DataGrid*> _row;
@@ -89,11 +88,16 @@ namespace GarvinEngine
 			virtual ~DataTable();
 
 			DataRow* getRow(uint32 index);
+			DataRow* getRow(const std::string& key);
 
 			void add(DataRow* row);
+			void add(std::string key, DataRow* row);
+
+			uint32 count();
 
 		private:
-			std::vector<DataRow*> _table;
+			std::map<std::string, DataRow*> _table;
+			uint32 _idx;
 		};
 	}
 }

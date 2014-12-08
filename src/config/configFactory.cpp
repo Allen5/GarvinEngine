@@ -2,7 +2,7 @@
 #include <config/configFactory.h>
 #include <config/ConfigLoaders.h>
 
-using namespace GarvinEngine;;
+using namespace GarvinEngine;
 using namespace GarvinEngine::Config;
 
 ConfigLoaderBase* ConfigFactory::create(uint8 type, std::string filename)

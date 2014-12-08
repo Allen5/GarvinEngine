@@ -1,6 +1,11 @@
 
 #include <config/ConfigLoaders.h>
 
+#include <util/iniFileReader.h>
+#include <fstream>
+
+using namespace GarvinEngine::Util;
+
 GarvinEngine::Config::IniConfigLoader::IniConfigLoader(std::string filename)
 :GarvinEngine::Config::ConfigLoaderBase(filename)
 {
@@ -12,9 +17,26 @@ GarvinEngine::Config::IniConfigLoader::~IniConfigLoader()
 
 bool GarvinEngine::Config::IniConfigLoader::load()
 {
-	//todo
-	//load config file from Ini
-	return false;
+	std::vector<std::string> vecSection;
+	vecSection.clear();
+
+	std::ifstream in;
+	in.open(filename().c_str(), std::ios::in);
+	if (in.bad()) { in.close(); return false; }
+
+	IniFileReader::getInstance()->listSections(in, vecSection);
+	if (vecSection.size() == 0) { in.close(); return false; }
+
+	DataTable* tab = new DataTable();
+	std::vector<std::string>::iterator iter = vecSection.begin();
+	for (; iter != vecSection.end(); iter++)
+	{
+		IniFileReader::getInstance()->listKV(in, *iter, tab);
+	}
+	in.close();
+
+	table(tab);
+	return true;
 }
 
 GarvinEngine::Config::XMLConfigLoader::XMLConfigLoader(std::string filename)

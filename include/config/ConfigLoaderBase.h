@@ -6,11 +6,9 @@
 
 #include <public.h>
 #include <config/configData.h>
-#include <common/xstring.h>
 
 using namespace GarvinEngine;
 using namespace GarvinEngine::Config;
-using namespace GarvinEngine::Common;
 
 namespace GarvinEngine
 {
@@ -19,7 +17,7 @@ namespace GarvinEngine
 		class ConfigLoaderBase
 		{
 		public:
-			ConfigLoaderBase(XString filename);
+			ConfigLoaderBase(std::string filename);
 			virtual ~ConfigLoaderBase();
 
 		public:
@@ -27,7 +25,7 @@ namespace GarvinEngine
 			virtual DataTable* get();
 
 		private:
-			MEMBER_VARIBLE(XString, filename);
+			MEMBER_VARIBLE(std::string, filename);
 			MEMBER_VARIBLE(DataTable*, table);
 		};
 	}

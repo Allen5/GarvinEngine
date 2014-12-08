@@ -21,6 +21,12 @@
     <Filter Include="源文件\common">
       <UniqueIdentifier>{34d063c9-b820-4582-be36-0291e25fad04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\util">
+      <UniqueIdentifier>{42589bde-1f02-4892-b5c0-7e94bf344c69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\util">
+      <UniqueIdentifier>{fa0a3733-43cc-49a0-aaa5-38343121db32}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\public.h">
@@ -38,8 +44,11 @@
     <ClInclude Include="include\config\ConfigLoaders.h">
       <Filter>头文件\config</Filter>
     </ClInclude>
-    <ClInclude Include="include\common\xstring.h">
-      <Filter>头文件\common</Filter>
+    <ClInclude Include="include\util\iniFileReader.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\xstring.h">
+      <Filter>头文件\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -55,8 +64,11 @@
     <ClCompile Include="src\config\configLoaders.cpp">
       <Filter>源文件\config</Filter>
     </ClCompile>
-    <ClCompile Include="src\common\xstring.cpp">
-      <Filter>源文件\common</Filter>
+    <ClCompile Include="src\util\iniFileReader.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\xstring.cpp">
+      <Filter>源文件\util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

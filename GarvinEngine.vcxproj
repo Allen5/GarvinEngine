@@ -11,19 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\common\xstring.h" />
     <ClInclude Include="include\config\configData.h" />
     <ClInclude Include="include\config\configFactory.h" />
     <ClInclude Include="include\config\ConfigLoaderBase.h" />
     <ClInclude Include="include\config\ConfigLoaders.h" />
     <ClInclude Include="include\public.h" />
+    <ClInclude Include="include\util\iniFileReader.h" />
+    <ClInclude Include="include\util\xstring.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\common\xstring.cpp" />
     <ClCompile Include="src\config\configData.cpp" />
     <ClCompile Include="src\config\configFactory.cpp" />
     <ClCompile Include="src\config\configLoaderBase.cpp" />
     <ClCompile Include="src\config\configLoaders.cpp" />
+    <ClCompile Include="src\util\iniFileReader.cpp" />
+    <ClCompile Include="src\util\xstring.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D3EFB29E-B56D-43B2-8682-FB44E9BEDCB8}</ProjectGuid>

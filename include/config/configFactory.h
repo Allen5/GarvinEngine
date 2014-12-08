@@ -6,9 +6,7 @@
 
 #include <public.h>
 #include "ConfigLoaderBase.h"
-#include <common/xstring.h>
 
-using namespace GarvinEngine::Common;
 
 namespace GarvinEngine
 {
@@ -28,7 +26,7 @@ namespace GarvinEngine
 		{
 			SINGLETON(ConfigFactory);
 		public:
-			ConfigLoaderBase* create(uint8 type, XString filename);
+			ConfigLoaderBase* create(uint8 type, std::string filename);
 		};
 	}
 }

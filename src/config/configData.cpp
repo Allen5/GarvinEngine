@@ -1,5 +1,8 @@
 
 #include <config/configData.h>
+#include <util/xstring.h>
+
+using namespace GarvinEngine::Util;
 
 GarvinEngine::Config::DataGrid::DataGrid()
 {
@@ -7,7 +10,7 @@ GarvinEngine::Config::DataGrid::DataGrid()
 	_value = "";
 }
 
-GarvinEngine::Config::DataGrid::DataGrid(XString key, XString value)
+GarvinEngine::Config::DataGrid::DataGrid(std::string key, std::string value)
 :_key(""),
 _value("")
 {
@@ -17,44 +20,56 @@ GarvinEngine::Config::DataGrid::~DataGrid()
 {
 }
 
-XString GarvinEngine::Config::DataGrid::getkey()
+std::string GarvinEngine::Config::DataGrid::getkey()
 {
 	return _key;
 }
 
-XString GarvinEngine::Config::DataGrid::getvalue()
+std::string GarvinEngine::Config::DataGrid::getvalue()
 {
 	return _value;
 }
 
 int32 GarvinEngine::Config::DataGrid::getInt32()
 {
-	return _value.toInt32();
+	int32 var = 0;
+	XString::getInstance()->translate(_value, var);
+	return var;
 }
 
 uint32 GarvinEngine::Config::DataGrid::getUInt32()
 {
-	return _value.toUInt32();
+	uint32 var = 0;
+	XString::getInstance()->translate(_value, var);
+	return var;
 }
 
 int64 GarvinEngine::Config::DataGrid::getInt64()
 {
-	return _value.toInt64();
+	int64 var = 0;
+	XString::getInstance()->translate(_value, var);
+	return var;
 }
 
 uint64 GarvinEngine::Config::DataGrid::getUInt64()
 {
-	return _value.toUInt64();
+	uint64 var = 0;
+	XString::getInstance()->translate(_value, var);
+	return var;
 }
 
 float GarvinEngine::Config::DataGrid::getFloat()
 {
-	return _value.toFloat();
+	float var = 0.0f;
+	XString::getInstance()->translate(_value, var);
+	return var;
 }
 
 double GarvinEngine::Config::DataGrid::getDouble()
 {
-	return _value.toDouble();
+	double var = 0;
+	XString::getInstance()->translate(_value, var);
+	return var;
 }
 
 
@@ -67,19 +82,19 @@ GarvinEngine::Config::DataRow::~DataRow()
 {
 }
 
-XString GarvinEngine::Config::DataRow::getField(uint32 index)
+std::string GarvinEngine::Config::DataRow::getField(uint32 index)
 {
-	if (!_checkRange(index)) return 0;
+	if (!_checkRange(index)) return std::string("");
 	return _row[index]->getkey();
 }
 
-XString GarvinEngine::Config::DataRow::getString(uint32 index)
+std::string GarvinEngine::Config::DataRow::getString(uint32 index)
 {
-	if (!_checkRange(index)) return 0;
+	if (!_checkRange(index)) return std::string("");
 	return _row[index]->getvalue();
 }
 
-XString GarvinEngine::Config::DataRow::getString(XString field)
+std::string GarvinEngine::Config::DataRow::getString(std::string field)
 {
 	return _find(field);
 }
@@ -90,9 +105,11 @@ int32 GarvinEngine::Config::DataRow::getInt32(uint32 index)
 	return _row[index]->getInt32();
 }
 
-int32 GarvinEngine::Config::DataRow::getInt32(XString field)
+int32 GarvinEngine::Config::DataRow::getInt32(std::string field)
 {
-	return _find(field).toInt32();
+	int32 var;
+	XString::getInstance()->translate(_find(field), var);
+	return var;
 }
 
 uint32 GarvinEngine::Config::DataRow::getUInt32(uint32 index)
@@ -101,9 +118,11 @@ uint32 GarvinEngine::Config::DataRow::getUInt32(uint32 index)
 	return _row[index]->getUInt32();
 }
 
-uint32 GarvinEngine::Config::DataRow::getUInt32(XString field)
+uint32 GarvinEngine::Config::DataRow::getUInt32(std::string field)
 {
-	return _find(field).toUInt32();
+	uint32 var;
+	XString::getInstance()->translate(_find(field), var);
+	return var;
 }
 
 int64 GarvinEngine::Config::DataRow::getInt64(uint32 index)
@@ -112,9 +131,11 @@ int64 GarvinEngine::Config::DataRow::getInt64(uint32 index)
 	return _row[index]->getInt64();
 }
 
-int64 GarvinEngine::Config::DataRow::getInt64(XString field)
+int64 GarvinEngine::Config::DataRow::getInt64(std::string field)
 {
-	return _find(field).toInt64();
+	int64 var;
+	XString::getInstance()->translate(_find(field), var);
+	return var;
 }
 
 uint64 GarvinEngine::Config::DataRow::getUInt64(uint32 index)
@@ -123,9 +144,11 @@ uint64 GarvinEngine::Config::DataRow::getUInt64(uint32 index)
 	return _row[index]->getUInt64();
 }
 
-uint64 GarvinEngine::Config::DataRow::getUInt64(XString field)
+uint64 GarvinEngine::Config::DataRow::getUInt64(std::string field)
 {
-	return _find(field).toUInt64();
+	uint64 var;
+	XString::getInstance()->translate(_find(field), var);
+	return var;
 }
 
 float GarvinEngine::Config::DataRow::getFloat(uint32 index)
@@ -134,9 +157,11 @@ float GarvinEngine::Config::DataRow::getFloat(uint32 index)
 	return _row[index]->getFloat();
 }
 
-float GarvinEngine::Config::DataRow::getFloat(XString field)
+float GarvinEngine::Config::DataRow::getFloat(std::string field)
 {
-	return _find(field).toFloat();
+	float var;
+	XString::getInstance()->translate(_find(field), var);
+	return var;
 }
 
 double GarvinEngine::Config::DataRow::getDouble(uint32 index)
@@ -145,9 +170,11 @@ double GarvinEngine::Config::DataRow::getDouble(uint32 index)
 	return _row[index]->getDouble();
 }
 
-double GarvinEngine::Config::DataRow::getDouble(XString field)
+double GarvinEngine::Config::DataRow::getDouble(std::string field)
 {
-	return _find(field).toDouble();
+	double var;
+	XString::getInstance()->translate(_find(field), var);
+	return var;
 }
 
 void GarvinEngine::Config::DataRow::add(DataGrid* grid)
@@ -155,13 +182,13 @@ void GarvinEngine::Config::DataRow::add(DataGrid* grid)
 	_row.push_back(grid);
 }
 
-XString GarvinEngine::Config::DataRow::_find(XString field)
+std::string GarvinEngine::Config::DataRow::_find(std::string field)
 {
 	std::vector<DataGrid*>::iterator iter = _row.begin();
 	for (; iter != _row.begin(); iter++) {
 		if ((*iter)->getkey() == field) return (*iter)->getvalue();
 	}
-	return XString("");
+	return std::string("");
 }
 
 bool GarvinEngine::Config::DataRow::_checkRange(uint32 index)
@@ -170,7 +197,13 @@ bool GarvinEngine::Config::DataRow::_checkRange(uint32 index)
 	return true;
 }
 
+uint32 GarvinEngine::Config::DataRow::count()
+{
+	return _row.size();
+}
+
 GarvinEngine::Config::DataTable::DataTable()
+:_idx(0)
 {
 	_table.clear();
 }
@@ -182,10 +215,28 @@ GarvinEngine::Config::DataTable::~DataTable()
 GarvinEngine::Config::DataRow* GarvinEngine::Config::DataTable::getRow(uint32 index)
 {
 	if (index < 0 || index > _table.size()) return NULL;
-	return _table[index];
+
+	std::string key;
+	XString::getInstance()->translate(index, key);
+	
+	std::map<std::string, DataRow*>::iterator iter = _table.find(key);
+	if (iter == _table.end()) return NULL;
+	return _table[key];
 }
 
 void GarvinEngine::Config::DataTable::add(DataRow* row)
 {
-	_table.push_back(row);
+	std::string key;
+	XString::getInstance()->translate(++_idx, key);
+	this->add(key, row);
+}
+
+void GarvinEngine::Config::DataTable::add(std::string key, DataRow* row)
+{
+	_table[key] = row;
+}
+
+uint32 GarvinEngine::Config::DataTable::count()
+{
+	return _table.size();
 }

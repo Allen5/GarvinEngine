@@ -3,9 +3,6 @@
 #define _GARVIN_CONFIGLOADER_H_
 
 #include <config/ConfigLoaderBase.h>
-#include <common/xstring.h>
-
-using namespace GarvinEngine::Common;
 
 namespace GarvinEngine
 {
@@ -15,7 +12,7 @@ namespace GarvinEngine
 		class IniConfigLoader : public ConfigLoaderBase
 		{
 		public:
-			IniConfigLoader(XString filename);
+			IniConfigLoader(std::string filename);
 			virtual ~IniConfigLoader();
 
 		public:
@@ -25,7 +22,7 @@ namespace GarvinEngine
 		class XMLConfigLoader : public ConfigLoaderBase
 		{
 		public:
-			XMLConfigLoader(XString filename);
+			XMLConfigLoader(std::string filename);
 			virtual ~XMLConfigLoader();
 
 		public: 
@@ -35,7 +32,7 @@ namespace GarvinEngine
 		class CSVConfigLoader : public ConfigLoaderBase
 		{
 		public:
-			CSVConfigLoader(XString filename);
+			CSVConfigLoader(std::string filename);
 			virtual ~CSVConfigLoader();
 
 		public:
@@ -45,7 +42,7 @@ namespace GarvinEngine
 		class JSONConfigLoader : public ConfigLoaderBase
 		{
 		public:
-			JSONConfigLoader(XString filename);
+			JSONConfigLoader(std::string filename);
 			virtual ~JSONConfigLoader();
 
 		public:
@@ -55,7 +52,7 @@ namespace GarvinEngine
 		class SQLConfigLoader : public ConfigLoaderBase
 		{
 		public:
-			SQLConfigLoader(XString filename);
+			SQLConfigLoader(std::string filename);
 			virtual ~SQLConfigLoader();
 
 		public:

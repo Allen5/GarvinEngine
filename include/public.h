@@ -138,4 +138,14 @@ private: tpp _##ppt; \
 protected: void ppt(tpp val) { _##ppt = val; } \
 protected: tpp ppt() { return _##ppt; }
 
+#undef MEMBER_READABLE
+#define MEMBER_READABLE(tpp, ppt) \
+private: tpp _##ppt; \
+protected: tpp ppt() { return _##ppt; }
+
+#undef MEMBER_WRITABLE
+#define MEMBER_WRITABLE(tpp, ppt) \
+private: tpp _##ppt; \
+protected: tpp ppt() { return _##ppt; }
+
 #endif //_GARVIN_PUBLIC_H_
