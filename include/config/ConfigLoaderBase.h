@@ -22,7 +22,7 @@ namespace GarvinEngine
 
 		public:
 			virtual bool load() = 0;
-			virtual DataTable* get();
+			DataTable* get();
 
 		private:
 			MEMBER_VARIBLE(std::string, filename);

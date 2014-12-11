@@ -11,8 +11,8 @@ GarvinEngine::Config::DataGrid::DataGrid()
 }
 
 GarvinEngine::Config::DataGrid::DataGrid(std::string key, std::string value)
-:_key(""),
-_value("")
+:_key(key),
+_value(value)
 {
 }
 
@@ -185,7 +185,7 @@ void GarvinEngine::Config::DataRow::add(DataGrid* grid)
 std::string GarvinEngine::Config::DataRow::_find(std::string field)
 {
 	std::vector<DataGrid*>::iterator iter = _row.begin();
-	for (; iter != _row.begin(); iter++) {
+	for (; iter != _row.end(); iter++) {
 		if ((*iter)->getkey() == field) return (*iter)->getvalue();
 	}
 	return std::string("");
@@ -219,6 +219,15 @@ GarvinEngine::Config::DataRow* GarvinEngine::Config::DataTable::getRow(uint32 in
 	std::string key;
 	XString::getInstance()->translate(index, key);
 	
+	std::map<std::string, DataRow*>::iterator iter = _table.find(key);
+	if (iter == _table.end()) return NULL;
+	return _table[key];
+}
+
+GarvinEngine::Config::DataRow* GarvinEngine::Config::DataTable::getRow(const std::string& key)
+{
+	if (key == "") return NULL;
+
 	std::map<std::string, DataRow*>::iterator iter = _table.find(key);
 	if (iter == _table.end()) return NULL;
 	return _table[key];

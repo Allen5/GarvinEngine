@@ -6,10 +6,12 @@
 using namespace std;
 using namespace GarvinEngine::Util;
 
+SINGLETON_DEFINE(IniFileReader)
+
 void GarvinEngine::Util::IniFileReader::listSections(std::ifstream& in, std::vector<std::string> & vecSection)
 {
 	if (in.bad()) return;
-	if (in.is_open()) return;
+	if (!in.is_open()) return;
 
 	string rgx = "^\\[\\w*\\]$";
 	regex exp(rgx);
@@ -33,11 +35,11 @@ void GarvinEngine::Util::IniFileReader::listKV(std::ifstream& in, const std::str
 {
 
 	if (in.bad()) return;
-	if (in.is_open()) return;
+	if (!in.is_open()) return;
 
 	bool beStart = false;
 
-	DataRow* row = NULL;
+	DataRow* row = new DataRow();
 	DataGrid* grid = NULL;
 
 	while (!in.eof())

@@ -22,6 +22,8 @@ bool GarvinEngine::Config::IniConfigLoader::load()
 
 	std::ifstream in;
 	in.open(filename().c_str(), std::ios::in);
+	
+	if (!in) return false; 
 	if (in.bad()) { in.close(); return false; }
 
 	IniFileReader::getInstance()->listSections(in, vecSection);

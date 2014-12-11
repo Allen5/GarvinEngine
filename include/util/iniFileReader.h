@@ -14,7 +14,7 @@ namespace GarvinEngine
 	{
 		class IniFileReader
 		{
-			SINGLETON(IniFileReader);
+			SINGLETON_DECALRE(IniFileReader);
 		public:
 			void listSections(std::ifstream& in,std::vector<std::string> & vecSection);
 			void listKV(std::ifstream& in, const std::string& section, DataTable* table);

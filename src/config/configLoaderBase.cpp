@@ -12,7 +12,7 @@ GarvinEngine::Config::ConfigLoaderBase::~ConfigLoaderBase()
 
 DataTable* GarvinEngine::Config::ConfigLoaderBase::get()
 {
-	return table();
+	return _table;
 }
 
 

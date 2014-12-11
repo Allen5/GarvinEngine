@@ -122,14 +122,19 @@ typedef unsigned long long uint64;
 #endif //跨平台支持bzero
 
 //单例声明
-#undef SINGLETON
-#define SINGLETON(cls) \
+#undef SINGLETON_DECALRE
+#define SINGLETON_DECALRE(cls) \
 private: static cls * _instance; \
-private: cls() {} \
+private: cls(){} \
 private: cls(const cls&) {} \
 private: cls& operator = (const cls&) {} \
-public: virtual ~cls() {} \
+public: virtual ~cls(){} \
 public: static cls * getInstance() { if (_instance == NULL) _instance = new cls(); return _instance; }
+
+//单例定义
+#undef SINGLETON_DEFINE
+#define SINGLETON_DEFINE(cls) \
+cls * cls::_instance = NULL; 
 
 //成员变量定义
 #undef MEMBER_VARIBLE

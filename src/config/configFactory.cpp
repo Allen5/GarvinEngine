@@ -5,6 +5,8 @@
 using namespace GarvinEngine;
 using namespace GarvinEngine::Config;
 
+SINGLETON_DEFINE(ConfigFactory);
+
 ConfigLoaderBase* ConfigFactory::create(uint8 type, std::string filename)
 {
 	switch (type)
@@ -18,3 +20,5 @@ ConfigLoaderBase* ConfigFactory::create(uint8 type, std::string filename)
 	return NULL;
 
 }
+
+

@@ -18,7 +18,7 @@ namespace GarvinEngine
 		class XString
 		{
 		
-			SINGLETON(XString);
+			SINGLETON_DECALRE(XString);
 
 		public:
 

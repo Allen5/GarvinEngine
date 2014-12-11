@@ -7,6 +7,7 @@
 using namespace GarvinEngine::Util;
 using namespace std;
 
+SINGLETON_DEFINE(XString);
 
 bool XString::_checkNumber(std::string str)
 {

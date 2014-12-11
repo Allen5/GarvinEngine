@@ -24,7 +24,7 @@ namespace GarvinEngine
 
 		class ConfigFactory
 		{
-			SINGLETON(ConfigFactory);
+			SINGLETON_DECALRE(ConfigFactory);
 		public:
 			ConfigLoaderBase* create(uint8 type, std::string filename);
 		};
