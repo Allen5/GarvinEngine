@@ -27,6 +27,12 @@
     <Filter Include="源文件\util">
       <UniqueIdentifier>{fa0a3733-43cc-49a0-aaa5-38343121db32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\network">
+      <UniqueIdentifier>{4055103d-f3bf-4657-84d8-17be1871733e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\network">
+      <UniqueIdentifier>{faf82551-fab0-4732-8674-05f23af1b96e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\public.h">
@@ -50,6 +56,33 @@
     <ClInclude Include="include\util\xstring.h">
       <Filter>头文件\util</Filter>
     </ClInclude>
+    <ClInclude Include="include\network\server.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\session.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\request.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\package.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\handler.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\response.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\serial.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\serverFactory.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\tcpsimpleserver.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\config\configData.cpp">
@@ -69,6 +102,24 @@
     </ClCompile>
     <ClCompile Include="src\util\xstring.cpp">
       <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\server.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\package.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\session.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\handler.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\serverfactory.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\tcpsimpleserver.cpp">
+      <Filter>源文件\network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

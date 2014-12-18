@@ -18,6 +18,11 @@ namespace GarvinEngine
 		public:
 			void listSections(std::ifstream& in,std::vector<std::string> & vecSection);
 			void listKV(std::ifstream& in, const std::string& section, DataTable* table);
+
+		private:
+			void _remSectionFormat(std::string& section);
+			void _addSectionFormat(std::string& section);
+
 		};
 	}
 }

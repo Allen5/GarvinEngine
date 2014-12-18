@@ -4,21 +4,23 @@
 /**
  * 此处用于定义共用的跨平台类型、函数、宏等
  */
-
-#ifndef _GARVIN_PUBLIC_H_
-#define _GARVIN_PUBLIC_H_
-
 //常用头文件
 #include <iostream>
 #include <string>
 #include <map>
 #include <vector>
+#include <assert.h>
 
 #if defined(_WIN32) || defined(_WIN64)
-#include <windows.h>
-#define WIN32_LEAN_AND_MEAN
+
+#include <WinSock2.h>
+#pragma comment(lib, "ws2_32.lib")
+
 #else
 #include <unistd.h>
+
+typedef int32 SOCKET; 
+
 #endif //跨平台 os基础库
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -140,17 +142,15 @@ cls * cls::_instance = NULL;
 #undef MEMBER_VARIBLE
 #define MEMBER_VARIBLE(tpp, ppt) \
 private: tpp _##ppt; \
-protected: void ppt(tpp val) { _##ppt = val; } \
-protected: tpp ppt() { return _##ppt; }
+public: void ppt(tpp val) { _##ppt = val; } \
+public: tpp ppt() { return _##ppt; }
 
 #undef MEMBER_READABLE
 #define MEMBER_READABLE(tpp, ppt) \
 private: tpp _##ppt; \
-protected: tpp ppt() { return _##ppt; }
+public: tpp ppt() { return _##ppt; }
 
 #undef MEMBER_WRITABLE
 #define MEMBER_WRITABLE(tpp, ppt) \
 private: tpp _##ppt; \
-protected: tpp ppt() { return _##ppt; }
-
-#endif //_GARVIN_PUBLIC_H_
+public: tpp ppt() { return _##ppt; }

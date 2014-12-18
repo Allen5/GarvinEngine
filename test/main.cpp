@@ -24,11 +24,27 @@ int main(int argc, char** argv)
 	table = loader->get();
 
 	cout << table->count() << endl;
-	cout << "[section]" << endl;
 
-	DataRow* row = table->getRow("[section]");
+	DataRow* row = table->getRow("section");
+	cout << "[section]" << endl;
 	cout << row->count() << endl;
-	cout << row->getField(0) << "=" << row->getString(row->getField(0)) << endl;
+	for (int i = 0; i < row->count(); i++) {
+		cout << row->getField(i) << "=" << row->getString(row->getField(i)) << endl;
+	}
+
+	row = table->getRow("ini");
+	cout << "[ini]" << endl;
+	cout << row->count() << endl;
+	for (int i = 0; i < row->count(); i++) {
+		cout << row->getField(i) << "=" << row->getString(row->getField(i)) << endl;
+	}
+
+	row = table->getRow("hello");
+	cout << "[hello]" << endl;
+	cout << row->count() << endl;
+	for (int i = 0; i < row->count(); i++) {
+		cout << row->getField(i) << "=" << row->getString(row->getField(i)) << endl;
+	}
 
 END:
 #if defined(_WIN32) || defined(_WIN64)

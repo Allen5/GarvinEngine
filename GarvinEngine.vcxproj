@@ -15,6 +15,15 @@
     <ClInclude Include="include\config\configFactory.h" />
     <ClInclude Include="include\config\ConfigLoaderBase.h" />
     <ClInclude Include="include\config\ConfigLoaders.h" />
+    <ClInclude Include="include\network\handler.h" />
+    <ClInclude Include="include\network\package.h" />
+    <ClInclude Include="include\network\request.h" />
+    <ClInclude Include="include\network\response.h" />
+    <ClInclude Include="include\network\serial.h" />
+    <ClInclude Include="include\network\server.h" />
+    <ClInclude Include="include\network\serverFactory.h" />
+    <ClInclude Include="include\network\session.h" />
+    <ClInclude Include="include\network\tcpsimpleserver.h" />
     <ClInclude Include="include\public.h" />
     <ClInclude Include="include\util\iniFileReader.h" />
     <ClInclude Include="include\util\xstring.h" />
@@ -24,6 +33,12 @@
     <ClCompile Include="src\config\configFactory.cpp" />
     <ClCompile Include="src\config\configLoaderBase.cpp" />
     <ClCompile Include="src\config\configLoaders.cpp" />
+    <ClCompile Include="src\network\handler.cpp" />
+    <ClCompile Include="src\network\package.cpp" />
+    <ClCompile Include="src\network\server.cpp" />
+    <ClCompile Include="src\network\serverfactory.cpp" />
+    <ClCompile Include="src\network\session.cpp" />
+    <ClCompile Include="src\network\tcpsimpleserver.cpp" />
     <ClCompile Include="src\util\iniFileReader.cpp" />
     <ClCompile Include="src\util\xstring.cpp" />
   </ItemGroup>
