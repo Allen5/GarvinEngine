@@ -5,6 +5,7 @@
 
 #pragma once
 
+#include <network/package.h>
 #include <network/serial.h>
 
 namespace GarvinEngine
@@ -17,10 +18,11 @@ namespace GarvinEngine
 		{
 
 		public:
-			Request() {}
+			Request();
+			Request(Package* pack);
 			virtual ~Request() {}
-			virtual void unserial(int8* buf) {}
-			virtual int8* serial() { return NULL; }
+			virtual void unserial() {}
+			virtual Package* serial() { return NULL; }
 
 		private:
 			MEMBER_VARIBLE(uint32, protoID);

@@ -1,6 +1,7 @@
 
-#include <network/tcpsimpleserver.h>
+#include <network/tcpnonblockserver.h>
 #include <network/serverFactory.h>
+#include <network/netcommon.h>
 
 using namespace GarvinEngine;
 using namespace GarvinEngine::Network;
@@ -9,18 +10,7 @@ SINGLETON_DEFINE(ServerFactory);
 
 Server* ServerFactory::create(int32 serverType, int32 protoType)
 {
-	assert(serverType >= SERVER_TYPE_SIMPLE && serverType < SERVER_TYPE_END);
-	if (serverType == SERVER_TYPE_SIMPLE)
-	{
-		switch (protoType)
-		{
-		case PROTO_TYPE_TCP: return new TCPSimpleServer();
-		case PROTO_TYPE_UDP: return NULL;//todo return new UDPSimpleServer();
-		case PROTO_TYPE_HTTP: return NULL;//todo return new HTTPSimpleServer();
-		}
-		return NULL;
-	}
-
+	assert(serverType >= SERVER_TYPE_THREAD && serverType < SERVER_TYPE_END);
 	if (serverType == SERVER_TYPE_THREAD)
 	{
 		switch (protoType)
@@ -47,7 +37,7 @@ Server* ServerFactory::create(int32 serverType, int32 protoType)
 	{
 		switch (protoType)
 		{
-		case PROTO_TYPE_TCP: return NULL;//todo return new TCPNonblockServer();
+		case PROTO_TYPE_TCP: return new TCPNonblockServer();
 		case PROTO_TYPE_UDP: return NULL;//todo return new UDPNonblockServer();
 		case PROTO_TYPE_HTTP: return NULL;//todo return new HTTPNonblockServer();
 		}

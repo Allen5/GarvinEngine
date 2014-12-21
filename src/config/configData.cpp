@@ -215,10 +215,8 @@ GarvinEngine::Config::DataTable::~DataTable()
 GarvinEngine::Config::DataRow* GarvinEngine::Config::DataTable::getRow(uint32 index)
 {
 	if (index < 0 || index > _table.size()) return NULL;
-
-	std::string key;
-	XString::getInstance()->translate(index, key);
 	
+	std::string key = XString::getInstance()->toString(index);
 	std::map<std::string, DataRow*>::iterator iter = _table.find(key);
 	if (iter == _table.end()) return NULL;
 	return _table[key];
@@ -235,8 +233,7 @@ GarvinEngine::Config::DataRow* GarvinEngine::Config::DataTable::getRow(const std
 
 void GarvinEngine::Config::DataTable::add(DataRow* row)
 {
-	std::string key;
-	XString::getInstance()->translate(++_idx, key);
+	std::string key = XString::getInstance()->toString(++_idx);
 	this->add(key, row);
 }
 

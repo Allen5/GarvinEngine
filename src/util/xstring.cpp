@@ -21,7 +21,7 @@ bool XString::_checkNumber(std::string str)
 }
 
 
-void GarvinEngine::Util::XString::translate(const std::string& from, int8& to)
+void XString::translate(const std::string& from, int8& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -31,7 +31,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, int8& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, uint8& to)
+void XString::translate(const std::string& from, uint8& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -41,7 +41,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, uint8& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, int16& to)
+void XString::translate(const std::string& from, int16& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -51,7 +51,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, int16& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, uint16& to)
+void XString::translate(const std::string& from, uint16& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -61,7 +61,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, uint16& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, int32& to)
+void XString::translate(const std::string& from, int32& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -71,7 +71,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, int32& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, uint32& to)
+void XString::translate(const std::string& from, uint32& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -81,7 +81,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, uint32& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, int64& to)
+void XString::translate(const std::string& from, int64& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -91,7 +91,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, int64& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, uint64& to)
+void XString::translate(const std::string& from, uint64& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -101,7 +101,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, uint64& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, float& to)
+void XString::translate(const std::string& from, float& to)
 {
 	if (!_checkNumber(from)) { to = 0.0f; return; }
 
@@ -111,7 +111,7 @@ void GarvinEngine::Util::XString::translate(const std::string& from, float& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const std::string& from, double& to)
+void XString::translate(const std::string& from, double& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
 
@@ -121,83 +121,103 @@ void GarvinEngine::Util::XString::translate(const std::string& from, double& to)
 	ss.clear();
 }
 
-void GarvinEngine::Util::XString::translate(const int8& from, std::string& to)
+std::string XString::toString(const int8& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const uint8& from, std::string& to)
+std::string XString::toString(const uint8& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const int16& from, std::string& to)
+std::string XString::toString(const int16& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const uint16& from, std::string& to)
+std::string XString::toString(const uint16& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const int32& from, std::string& to)
+std::string XString::toString(const int32& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const uint32& from, std::string& to)
+std::string XString::toString(const uint32& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const int64& from, std::string& to)
+std::string XString::toString(const int64& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const uint64& from, std::string& to)
+std::string XString::toString(const uint64& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const float& from, std::string& to)
+std::string XString::toString(const float& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 
-void GarvinEngine::Util::XString::translate(const double& from, std::string& to)
+std::string XString::toString(const double& from)
 {
+	std::string to;
 	stringstream ss;
 	ss << from;
 	ss >> to;
 	ss.clear();
+	return to;
 }
 

@@ -21,9 +21,6 @@ namespace GarvinEngine
 		public:
 			Session();
 			virtual ~Session();
-
-			Request* recv();
-			void send(Response* resp);
 			bool close();
 
 		private:

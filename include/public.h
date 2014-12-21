@@ -9,6 +9,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <queue>
 #include <assert.h>
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -123,6 +124,12 @@ typedef unsigned long long uint64;
 #include <strings.h>
 #endif //跨平台支持bzero
 
+#if defined(_WIN32) || defined(_WIN64)
+#define CLOSE(sockfd) closesocket(sockfd)
+#else
+#define CLOSE(sockfd) close(sockfd)
+#endif //cross-platform close file descriptor of socket
+
 //单例声明
 #undef SINGLETON_DECALRE
 #define SINGLETON_DECALRE(cls) \
@@ -130,7 +137,6 @@ private: static cls * _instance; \
 private: cls(){} \
 private: cls(const cls&) {} \
 private: cls& operator = (const cls&) {} \
-public: virtual ~cls(){} \
 public: static cls * getInstance() { if (_instance == NULL) _instance = new cls(); return _instance; }
 
 //单例定义

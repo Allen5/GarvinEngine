@@ -20,7 +20,13 @@ namespace GarvinEngine
 		{
 		public:
 			Package();
+			Package(int8* data);
 			virtual ~Package();
+
+			uint32 getHeadLen();
+			uint32 getBodyLen();
+			uint32 getPackLen();
+			void addPackHeader();
 
 		public:
 
@@ -63,8 +69,10 @@ namespace GarvinEngine
 		private:
 			MEMBER_VARIBLE(int8*, buf);
 			MEMBER_VARIBLE(int32, pos);
-			MEMBER_VARIBLE(int32, len);
+			MEMBER_VARIBLE(uint32, len);
 			MEMBER_VARIBLE(int32, size);
+			MEMBER_VARIBLE(uint32, protoid);
+			MEMBER_VARIBLE(uint32, headlen);
 
 		};
 

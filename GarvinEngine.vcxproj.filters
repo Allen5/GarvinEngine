@@ -33,6 +33,12 @@
     <Filter Include="源文件\network">
       <UniqueIdentifier>{faf82551-fab0-4732-8674-05f23af1b96e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\database">
+      <UniqueIdentifier>{a0a1396d-d6e4-48cd-938d-9a0c14872ca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\database">
+      <UniqueIdentifier>{f9268bb8-821a-4e9f-bddc-4e38f5da079f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\public.h">
@@ -80,8 +86,35 @@
     <ClInclude Include="include\network\serverFactory.h">
       <Filter>头文件\network</Filter>
     </ClInclude>
-    <ClInclude Include="include\network\tcpsimpleserver.h">
+    <ClInclude Include="include\network\tcpnonblockserver.h">
       <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\logger.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\thread.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\datetime.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\client.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\clientFactory.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\tcpclient.h">
+      <Filter>头文件\network</Filter>
+    </ClInclude>
+    <ClInclude Include="include\database\databasefactory.h">
+      <Filter>头文件\database</Filter>
+    </ClInclude>
+    <ClInclude Include="include\database\Database.h">
+      <Filter>头文件\database</Filter>
+    </ClInclude>
+    <ClInclude Include="include\database\mysqlhandler.h">
+      <Filter>头文件\database</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -118,8 +151,32 @@
     <ClCompile Include="src\network\serverfactory.cpp">
       <Filter>源文件\network</Filter>
     </ClCompile>
-    <ClCompile Include="src\network\tcpsimpleserver.cpp">
+    <ClCompile Include="src\network\tcpnonblockserver.cpp">
       <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\request.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\thread.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\logger.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\datetime.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\client.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\clientFactory.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\network\tcpclient.cpp">
+      <Filter>源文件\network</Filter>
+    </ClCompile>
+    <ClCompile Include="src\database\databasefactory.cpp">
+      <Filter>源文件\database</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

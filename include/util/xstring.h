@@ -32,16 +32,17 @@ namespace GarvinEngine
 			void translate(const std::string& from, uint64& to);
 			void translate(const std::string& from, float&	to);
 			void translate(const std::string& from, double& to);
-			void translate(const int8&		from, std::string& to);
-			void translate(const uint8&		from, std::string& to);
-			void translate(const int16&		from, std::string& to);
-			void translate(const uint16&	from, std::string& to);
-			void translate(const int32&		from, std::string& to);
-			void translate(const uint32&	from, std::string& to);
-			void translate(const int64&		from, std::string& to);
-			void translate(const uint64&	from, std::string& to);
-			void translate(const float&		from, std::string& to);
-			void translate(const double&	from, std::string& to);
+
+			std::string toString(const int8&		from);
+			std::string toString(const uint8&		from);
+			std::string toString(const int16&		from);
+			std::string toString(const uint16&		from);
+			std::string toString(const int32&		from);
+			std::string toString(const uint32&		from);
+			std::string toString(const int64&		from);
+			std::string toString(const uint64&		from);
+			std::string toString(const float&		from);
+			std::string toString(const double&		from);
 
 			//should add toUTF8 interface
 

@@ -2,6 +2,7 @@
 #pragma once
 
 #include <public.h>
+#include <network/package.h>
 
 namespace GarvinEngine
 {
@@ -11,10 +12,13 @@ namespace GarvinEngine
 		class ISerial
 		{
 		public:
-			ISerial() {};
-			virtual ~ISerial() {};
-			virtual void unserial(int8* buf) = 0;
-			virtual int8* serial() = 0;
+			ISerial() : _pack(NULL) {};
+			virtual ~ISerial() { delete _pack; _pack = NULL; };
+			virtual void unserial() = 0;
+			virtual Package* serial() = 0;
+
+		protected:
+			Package* _pack;
 		};
 
 	}

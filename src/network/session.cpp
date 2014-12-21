@@ -5,7 +5,7 @@ using namespace GarvinEngine;
 using namespace GarvinEngine::Network;
 
 Session::Session()
-:_sid(0)
+: _sid(0)
 , _ip("")
 , _port(0)
 , _loginTime(0)
@@ -19,19 +19,6 @@ Session::~Session()
 
 }
 
-Request* Session::recv()
-{
-	//todo
-	//receive data and convert to Request;
-	return NULL;
-}
-
-void Session::send(Response* resp)
-{
-	//todo 
-	//send Response to requestor
-}
-
 bool Session::close()
 {
 	//close connection
@@ -41,7 +28,7 @@ bool Session::close()
 		//log it
 		return false;
 	}
-	closesocket(sockfd());
+	CLOSE(sockfd());
 	return true;
 }
 
