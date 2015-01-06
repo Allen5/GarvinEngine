@@ -148,7 +148,7 @@ void TCPNonblockServer::_setfd(int32 sockfd)
 #endif
 }
 
-Request* TCPNonblockServer::request(int32 sockfd)
+Request* TCPNonblockServer::request(SOCKET sockfd)
 {
 	//todo;
 	int32 n = recv(sockfd, _buf + _pos, MAX_BUF, 0);
@@ -169,6 +169,7 @@ Request* TCPNonblockServer::request(int32 sockfd)
 		FD_CLR(sockfd, &_clientset);
 #endif
 
+		//todo
 		//should add close event handler and invoke it
 
 		CLOSE(sockfd);

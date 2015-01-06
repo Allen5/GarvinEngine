@@ -17,16 +17,18 @@ Logger::~Logger()
 
 void Logger::run()
 {
-	if (!_create(filename()))  {
-		std::cout << "create log file failed(). " << filename() << std::endl;
-		return;
-	}
+	if (!_create(_filename))  return;
 
 	while (true)
 	{
-		if (!_checkDate() || !_checkSize()) _create(filename());
+		if (_contents.size() <= 0)
+		{
+			Sleep(100); continue;
+		}
 
-		if (toConsole()) std::cout << _contents.front() << std::endl;
+		if (!_checkDate() || !_checkSize()) _create(_filename);
+
+		if (_toConsole == true) std::cout << _contents.front() << std::endl;
 
 		_logfile->write(_contents.front().c_str(), _contents.front().length());
 		_contents.pop();
@@ -41,16 +43,24 @@ bool Logger::_create(std::string name)
 	_init();
 
 	_curtime = new Datetime();
-	_logfilename = _curtime->getDateTime() + "." + XString::getInstance()->toString(_extenID) + "." + name + ".log";
 
-	_logfile = new std::ofstream(_logfilename.c_str(), std::ios::trunc | std::ios::out);
-	if (_logfile->is_open()) {
-		std::cout << "create file " << _logfilename << " failed" << std::endl;
+	if (name == "") {//if filename is empty, then set the module name as filename
+		std::cout << "Logger::create file error. filename is empty" << std::endl;
 		return false;
 	}
 
-	if (_logfile->fail() || _logfile->bad()) {
-		std::cout << "open file " << _logfilename << " failed" << std::endl;
+	if (_logdir != "") { //create dir if dir is not exist
+		std::fstream _dir;
+		_dir.open(_logdir, std::ios::in);
+		if (!_dir) _mkdir(_logdir.c_str());
+	}
+
+	_logfilename = _logdir + _curtime->getDate() + "." + XString::getInstance()->toString(_extenID) + "." + name + ".log";
+
+	_logfile = new std::ofstream(_logfilename.c_str(), std::ios::app);
+	if (!_logfile) {
+		std::cout << GetLastError() << std::endl;
+		std::cout << "create file " << _logfilename << " failed" << std::endl;
 		return false;
 	}
 
@@ -70,6 +80,8 @@ bool Logger::_checkDate()
 
 bool Logger::_checkSize()
 {
+	if (_extenSize == 0) return true;//logfile is not set store limit size
+
 	//check file size;
 	std::ifstream in(_logfilename.c_str(), std::ios::in);
 	in.seekg(0, std::ios::end);
@@ -98,6 +110,8 @@ void Logger::_init()
 	}
 
 	_extenID = 0;//reset
+	_logfilename = "";
+
 }
 
 void Logger::println(const uint8 level, const char* fmt, ...)
@@ -125,6 +139,15 @@ void Logger::println(const uint8 level, const char* fmt, ...)
 	content += "\n";
 
 	_contents.push(content);
+}
+
+
+void Logger::config(std::string dir, std::string file, bool showConsole /*= true*/, int32 size /*= 0*/)
+{
+	_logdir = dir;
+	_filename = file;
+	_extenSize = size;
+	_toConsole = showConsole;
 }
 
 

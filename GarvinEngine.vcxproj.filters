@@ -56,9 +56,6 @@
     <ClInclude Include="include\config\ConfigLoaders.h">
       <Filter>头文件\config</Filter>
     </ClInclude>
-    <ClInclude Include="include\util\iniFileReader.h">
-      <Filter>头文件\util</Filter>
-    </ClInclude>
     <ClInclude Include="include\util\xstring.h">
       <Filter>头文件\util</Filter>
     </ClInclude>
@@ -116,6 +113,15 @@
     <ClInclude Include="include\database\mysqlhandler.h">
       <Filter>头文件\database</Filter>
     </ClInclude>
+    <ClInclude Include="include\util\argsParsor.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
+    <ClInclude Include="include\network\netcommon.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="include\util\iniParsor.h">
+      <Filter>头文件\util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\config\configData.cpp">
@@ -129,9 +135,6 @@
     </ClCompile>
     <ClCompile Include="src\config\configLoaders.cpp">
       <Filter>源文件\config</Filter>
-    </ClCompile>
-    <ClCompile Include="src\util\iniFileReader.cpp">
-      <Filter>源文件\util</Filter>
     </ClCompile>
     <ClCompile Include="src\util\xstring.cpp">
       <Filter>源文件\util</Filter>
@@ -177,6 +180,12 @@
     </ClCompile>
     <ClCompile Include="src\database\databasefactory.cpp">
       <Filter>源文件\database</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\argsParsor.cpp">
+      <Filter>源文件\util</Filter>
+    </ClCompile>
+    <ClCompile Include="src\util\iniParsor.cpp">
+      <Filter>源文件\util</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

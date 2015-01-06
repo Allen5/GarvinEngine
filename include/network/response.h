@@ -12,10 +12,11 @@ namespace GarvinEngine
 		class Response : public ISerial
 		{
 		public:
-			Response():_pack(NULL){}
+			Response(){}
+			Response(Package* pack) { if (pack) _pack = pack; }
 			virtual ~Response() {}
 
-			virtual void unserial(Package* pack){}
+			virtual void unserial() {}
 			virtual Package* serial() { return NULL; }
 
 		public:
@@ -23,10 +24,6 @@ namespace GarvinEngine
 			{
 				_protoID = protoID;
 			}
-
-		protected:
-
-			Package* _pack;
 
 		private:
 			MEMBER_VARIBLE(uint32, protoID);

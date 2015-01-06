@@ -231,6 +231,12 @@ GarvinEngine::Config::DataRow* GarvinEngine::Config::DataTable::getRow(const std
 	return _table[key];
 }
 
+GarvinEngine::Config::DataRow* GarvinEngine::Config::DataTable::getRow(const int8* key)
+{
+	if (key == NULL) return NULL;
+	return this->getRow(std::string(key));
+}
+
 void GarvinEngine::Config::DataTable::add(DataRow* row)
 {
 	std::string key = XString::getInstance()->toString(++_idx);

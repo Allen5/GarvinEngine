@@ -32,8 +32,8 @@ namespace GarvinEngine
 			void process(Session* session, Request* request);
 			void on(uint32 protoId, Handler* handler);
 
-			virtual Request* request(SOCKET sockfd);
-			virtual void response(SOCKET sockfd, Response* resp);
+			virtual Request* request(SOCKET sockfd) = 0;
+			virtual void response(SOCKET sockfd, Response* resp) = 0;
 			
 			void addSession(Session* session);
 			Session* getSession(uint64 sessionId);
@@ -52,8 +52,7 @@ namespace GarvinEngine
 			MEMBER_VARIBLE(uint64, sessionID);
 
 		};
-
 	}
-
 }
+
 

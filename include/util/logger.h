@@ -5,6 +5,7 @@
 #include <util/thread.h>
 #include <util/datetime.h>
 #include <fstream>
+#include <direct.h>
 
 namespace GarvinEngine
 {
@@ -12,10 +13,10 @@ namespace GarvinEngine
 	namespace Util
 	{
 
-#define LOG_DEBUG(fmt, ...)	do { Logger::getInstance()->println(LOG_DEBUG,		fmt, __VA_ARGS__) } while(0);
-#define LOG_INFO(fmt, ...)	do { Logger::getInstance()->println(LOG_INFO,		fmt, __VA_ARGS__) } while(0);
-#define LOG_WARN(fmt, ...)	do { Logger::getInstance()->println(LOG_WARNING,	fmt, __VA_ARGS__) } while(0);
-#define LOG_ERROR(fmt, ...)	do { Logger::getInstance()->println(LOG_ERROR,		fmt, __VA_ARGS__) } while(0);
+#define LOG_DEBUG(fmt, ...)	do { Logger::getInstance()->println(LOG_DEBUG,		fmt, __VA_ARGS__); } while(0);
+#define LOG_INFO(fmt, ...)	do { Logger::getInstance()->println(LOG_INFO,		fmt, __VA_ARGS__); } while(0);
+#define LOG_WARN(fmt, ...)	do { Logger::getInstance()->println(LOG_WARNING,	fmt, __VA_ARGS__); } while(0);
+#define LOG_ERROR(fmt, ...)	do { Logger::getInstance()->println(LOG_ERROR,		fmt, __VA_ARGS__); } while(0);
 
 		enum LogLevel
 		{
@@ -36,6 +37,16 @@ namespace GarvinEngine
 			virtual void run();
 			void println(const uint8 level, const char* fmt, ...);
 
+			/**
+			 * 配置日志文件的路径，日志文件名称，日志文件固定大小
+			 * @param std::string dir
+			 * @param std::string file
+			 * @param bool show log content on console
+			 * @param int32 size
+			 * @return void
+			 */
+			void config(std::string dir, std::string file, bool showConsole = true, int32 size = 0);
+
 		private:
 
 			void _init();
@@ -48,11 +59,13 @@ namespace GarvinEngine
 			std::ofstream* _logfile;
 			uint32 _extenID;
 			std::string _logfilename;
+			
+			std::string _filename;
+			std::string _logdir;
+			bool _toConsole;
+			int32 _extenSize;
 
-			MEMBER_VARIBLE(bool, toConsole);
-			MEMBER_VARIBLE(std::string, filename);
-			MEMBER_VARIBLE(uint32, extenSize); //日志固定存储大小
-			MEMBER_VARIBLE(Datetime*, curtime);
+			Datetime* _curtime;
 
 			std::queue<std::string> _contents;
 		};

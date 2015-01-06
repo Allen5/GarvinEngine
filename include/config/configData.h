@@ -89,6 +89,7 @@ namespace GarvinEngine
 
 			DataRow* getRow(uint32 index);
 			DataRow* getRow(const std::string& key);
+			DataRow* getRow(const int8* key);
 
 			void add(DataRow* row);
 			void add(std::string key, DataRow* row);

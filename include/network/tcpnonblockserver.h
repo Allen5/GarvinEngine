@@ -16,7 +16,7 @@ namespace GarvinEngine
 		public:
 			virtual bool open(); 
 
-			virtual Request* request(int32 sockfd);
+			virtual Request* request(SOCKET sockfd);
 			virtual void response(SOCKET sockfd, Response* resp);
 
 		private:

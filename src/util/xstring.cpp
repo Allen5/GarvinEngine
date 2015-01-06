@@ -14,7 +14,7 @@ bool XString::_checkNumber(std::string str)
 	if (str == "") return false;
 	
 	//正则，验证字符串为数字（整数、浮点数）
-	string rgx = "^[-]{0,1}\\d+[\\.]{0,1}\\d+$";
+	string rgx = "^[-]{0,1}\\d+[\\.]{0,1}\\d*$";
 	regex exp(rgx);
 
 	return regex_match(str, exp);

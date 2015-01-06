@@ -1,7 +1,7 @@
 
 #include <config/ConfigLoaders.h>
 
-#include <util/iniFileReader.h>
+#include <util/iniParsor.h>
 #include <fstream>
 
 using namespace GarvinEngine::Util;
@@ -26,14 +26,14 @@ bool GarvinEngine::Config::IniConfigLoader::load()
 	if (!in) return false; 
 	if (in.bad()) { in.close(); return false; }
 
-	IniFileReader::getInstance()->listSections(in, vecSection);
+	IniParsor::getInstance()->listSections(in, vecSection);
 	if (vecSection.size() == 0) { in.close(); return false; }
 
 	DataTable* tab = new DataTable();
 	std::vector<std::string>::iterator iter = vecSection.begin();
 	for (; iter != vecSection.end(); iter++)
 	{
-		IniFileReader::getInstance()->listKV(in, *iter, tab);
+		IniParsor::getInstance()->listKV(in, *iter, tab);
 	}
 	in.close();
 

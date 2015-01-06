@@ -21,6 +21,7 @@
     <ClInclude Include="include\network\client.h" />
     <ClInclude Include="include\network\clientFactory.h" />
     <ClInclude Include="include\network\handler.h" />
+    <ClInclude Include="include\network\netcommon.h" />
     <ClInclude Include="include\network\package.h" />
     <ClInclude Include="include\network\request.h" />
     <ClInclude Include="include\network\response.h" />
@@ -31,8 +32,9 @@
     <ClInclude Include="include\network\tcpclient.h" />
     <ClInclude Include="include\network\tcpnonblockserver.h" />
     <ClInclude Include="include\public.h" />
+    <ClInclude Include="include\util\argsParsor.h" />
     <ClInclude Include="include\util\datetime.h" />
-    <ClInclude Include="include\util\iniFileReader.h" />
+    <ClInclude Include="include\util\iniParsor.h" />
     <ClInclude Include="include\util\logger.h" />
     <ClInclude Include="include\util\thread.h" />
     <ClInclude Include="include\util\xstring.h" />
@@ -53,8 +55,9 @@
     <ClCompile Include="src\network\session.cpp" />
     <ClCompile Include="src\network\tcpclient.cpp" />
     <ClCompile Include="src\network\tcpnonblockserver.cpp" />
+    <ClCompile Include="src\util\argsParsor.cpp" />
     <ClCompile Include="src\util\datetime.cpp" />
-    <ClCompile Include="src\util\iniFileReader.cpp" />
+    <ClCompile Include="src\util\iniParsor.cpp" />
     <ClCompile Include="src\util\logger.cpp" />
     <ClCompile Include="src\util\thread.cpp" />
     <ClCompile Include="src\util\xstring.cpp" />
@@ -104,6 +107,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

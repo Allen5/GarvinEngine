@@ -6,14 +6,6 @@ namespace GarvinEngine
 
 	namespace Network
 	{
-		
-
-		enum ClientType
-		{
-			CLIENT_TYPE_THREAD = 1,		//多线程模型
-			CLIENT_TYPE_PROCESS = 2,	//多进程模型
-			CLIENT_TYPE_END,
-		};
 
 		enum ServerType
 		{

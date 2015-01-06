@@ -29,38 +29,21 @@ Datetime::~Datetime()
 
 std::string Datetime::getDate()
 {
-	std::ostringstream out;
-	out.fill(0); //不齐补0
-
-	out.width(4); //YYYY显示年
-	out << _year;
-	out << "-"; //分隔符 
-	out.width(2); //MM 显示月
-	out << _month;
-	out << "-";
-	out << _day; //dd 显示天
-
-	return out.str();
+	char buf[32] = { 0 };
+	sprintf_s(buf, "%04d-%02d-%02d", _year, _month, _day);
+	return string(buf);
 }
 
 std::string Datetime::getTime()
 {
-	std::ostringstream out;
-	out.fill(0);
-
-	out.width(2);
-	out << _hour;
-	out << ":";
-	out << _minute;
-	out << ":";
-	out << _second;
-
-	return out.str();
+	char buf[32] = { 0 };
+	sprintf_s(buf, "%02d:%02d:%02d", _hour, _minute, _second);
+	return string(buf);
 }
 
 std::string Datetime::getDateTime()
 {
-	return this->getDate() + " " + this->getTime();
+	return getDate() + " " + getTime();
 }
 
 void Datetime::_maketime(time_t now)
