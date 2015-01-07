@@ -1,11 +1,16 @@
 
 #pragma once
 
+#include <public.h>
+
 namespace GarvinEngine
 {
 
 	namespace Network
 	{
+
+		static const int32 RET_SUCCESS = 0;
+		static const int32 RET_FAILED = -1;
 
 		enum ServerType
 		{
