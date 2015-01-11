@@ -13,10 +13,9 @@
 #include <assert.h>
 
 #if defined(_WIN32) || defined(_WIN64)
-
 #include <WinSock2.h>
 #pragma comment(lib, "ws2_32.lib")
-
+#include <windows.h>
 #else
 #include <unistd.h>
 

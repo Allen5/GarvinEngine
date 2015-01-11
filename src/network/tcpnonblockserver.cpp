@@ -1,14 +1,15 @@
 
 #include <network/tcpnonblockserver.h>
+#include <util/logger.h>
 
 
 using namespace GarvinEngine;
 using namespace GarvinEngine::Network;
+using namespace GarvinEngine::Util;
 
 bool TCPNonblockServer::open()
 {
 	if (!_init()) return false;
-
 
 #if defined(_WIN32) || defined(_WIN64)
 
@@ -229,13 +230,23 @@ Request* TCPNonblockServer::_packgeDeal(int32 n)
 
 bool TCPNonblockServer::_bind()
 {
+
+#if defined(_WIN32) || defined(_WIN64)
+	WSADATA wsadata;
+	int ret = WSAStartup(MAKEWORD(2, 2), &wsadata);
+	if (ret != 0) {
+		LOG_ERROR("TCPNonblockServer::_bind. WSAStartup failed. errno:%d", ret);
+		return false;
+	}
+#endif
+
 	//bind address and listen on port
 	listenfd(socket(AF_INET, SOCK_STREAM, 0));
 	if (listenfd() < 0) {
-		//todo, log sth
+		LOG_ERROR("TCPNonblockServer::_bind() socket failed.");
 		return false;
 	}
-
+	
 	sockaddr_in serverAddr;
 	memset(&serverAddr, 0, sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
@@ -248,16 +259,18 @@ bool TCPNonblockServer::_bind()
 #endif //cross-platform address binding
 
 
+	LOG_DEBUG("TCPNonblockServer::_bind() ip:%s, port:%d", host().c_str(), port());
+
 	//bind address
 	if (bind(listenfd(), (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
-		//todo, log sth
+		LOG_ERROR("TCPNonblockServer::_bind() bind failed. errno:%d", WSAGetLastError());
 		CLOSE(listenfd());
 		return false;
 	}
 
 	//listen
 	if (listen(listenfd(), backlog()) < 0) {
-		//todo, log sth
+		LOG_ERROR("TCPNonblockServer::_bind() listen failed. errno:%d", WSAGetLastError());
 		CLOSE(listenfd());
 		return false;
 	}

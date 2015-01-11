@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarvinEngine", "GarvinEngine.vcxproj", "{D3EFB29E-B56D-43B2-8682-FB44E9BEDCB8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarvinNetwork", "GarvinNetwork.vcxproj", "{EDAAD4BC-AB3F-4F29-B3A7-9B3EFD2E3297}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test.vcxproj", "{8DE6DAA7-2095-40FF-9137-A51395471A1D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarvinUtil", "GarvinUtil.vcxproj", "{7C621825-8AF3-4AFC-9065-D8CF47727754}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarvinConfig", "GarvinConfig.vcxproj", "{AF57A525-5B3E-42B2-A3FF-71E31994108D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GarvinEncrypto", "GarvinEncrypto.vcxproj", "{11ECBA63-C17B-468F-A27C-3ED8F29CE7AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +17,22 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D3EFB29E-B56D-43B2-8682-FB44E9BEDCB8}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D3EFB29E-B56D-43B2-8682-FB44E9BEDCB8}.Debug|Win32.Build.0 = Debug|Win32
-		{D3EFB29E-B56D-43B2-8682-FB44E9BEDCB8}.Release|Win32.ActiveCfg = Release|Win32
-		{D3EFB29E-B56D-43B2-8682-FB44E9BEDCB8}.Release|Win32.Build.0 = Release|Win32
-		{8DE6DAA7-2095-40FF-9137-A51395471A1D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{8DE6DAA7-2095-40FF-9137-A51395471A1D}.Debug|Win32.Build.0 = Debug|Win32
-		{8DE6DAA7-2095-40FF-9137-A51395471A1D}.Release|Win32.ActiveCfg = Release|Win32
-		{8DE6DAA7-2095-40FF-9137-A51395471A1D}.Release|Win32.Build.0 = Release|Win32
+		{EDAAD4BC-AB3F-4F29-B3A7-9B3EFD2E3297}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EDAAD4BC-AB3F-4F29-B3A7-9B3EFD2E3297}.Debug|Win32.Build.0 = Debug|Win32
+		{EDAAD4BC-AB3F-4F29-B3A7-9B3EFD2E3297}.Release|Win32.ActiveCfg = Release|Win32
+		{EDAAD4BC-AB3F-4F29-B3A7-9B3EFD2E3297}.Release|Win32.Build.0 = Release|Win32
+		{7C621825-8AF3-4AFC-9065-D8CF47727754}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7C621825-8AF3-4AFC-9065-D8CF47727754}.Debug|Win32.Build.0 = Debug|Win32
+		{7C621825-8AF3-4AFC-9065-D8CF47727754}.Release|Win32.ActiveCfg = Release|Win32
+		{7C621825-8AF3-4AFC-9065-D8CF47727754}.Release|Win32.Build.0 = Release|Win32
+		{AF57A525-5B3E-42B2-A3FF-71E31994108D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AF57A525-5B3E-42B2-A3FF-71E31994108D}.Debug|Win32.Build.0 = Debug|Win32
+		{AF57A525-5B3E-42B2-A3FF-71E31994108D}.Release|Win32.ActiveCfg = Release|Win32
+		{AF57A525-5B3E-42B2-A3FF-71E31994108D}.Release|Win32.Build.0 = Release|Win32
+		{11ECBA63-C17B-468F-A27C-3ED8F29CE7AB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{11ECBA63-C17B-468F-A27C-3ED8F29CE7AB}.Debug|Win32.Build.0 = Debug|Win32
+		{11ECBA63-C17B-468F-A27C-3ED8F29CE7AB}.Release|Win32.ActiveCfg = Release|Win32
+		{11ECBA63-C17B-468F-A27C-3ED8F29CE7AB}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

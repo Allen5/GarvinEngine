@@ -20,6 +20,14 @@ Server::~Server()
 
 }
 
+void GarvinEngine::Network::Server::config(std::string host, uint16 port, uint16 backlog)
+{
+	this->_host = host;
+	this->_port = port;
+	this->_backlog = backlog;
+}
+
+
 void Server::addSession(Session* session)
 {
 	_sessions[session->sid()] = session;

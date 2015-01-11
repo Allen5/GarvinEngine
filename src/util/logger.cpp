@@ -9,9 +9,6 @@ SINGLETON_DEFINE(Logger);
 
 Logger::~Logger()
 {
-	_logfile->close();
-	delete _logfile;
-	_logfile = NULL;
 }
 
 
@@ -21,9 +18,9 @@ void Logger::run()
 
 	while (true)
 	{
-		if (_contents.size() <= 0)
-		{
-			Sleep(100); continue;
+		if (_contents.size() <= 0) {
+			Sleep(10);
+			continue;
 		}
 
 		if (!_checkDate() || !_checkSize()) _create(_filename);
@@ -32,7 +29,7 @@ void Logger::run()
 
 		_logfile->write(_contents.front().c_str(), _contents.front().length());
 		_contents.pop();
-		Sleep(100);
+		Sleep(10);
 	}
 
 }
@@ -116,14 +113,16 @@ void Logger::_init()
 
 void Logger::println(const uint8 level, const char* fmt, ...)
 {
+	if (level < _out_level) return;
+
 	Datetime now;
 	std::string content = "[" + now.getDateTime() + "][";
 	switch (level)
 	{
-	case LOG_DEBUG: content += "DEBUG"; break;
-	case LOG_INFO: content += "INFO"; break;
-	case LOG_WARNING: content += "WARNING"; break;
-	case LOG_ERROR: content += "ERROR"; break;
+	case LOG_LEVEL_DEBUG:	content += "DEBUG"; break;
+	case LOG_LEVEL_INFO:	content += "INFO"; break;
+	case LOG_LEVEL_WARNING: content += "WARNING"; break;
+	case LOG_LEVEL_ERROR:	content += "ERROR"; break;
 	}
 	content += "]";
 
@@ -142,12 +141,33 @@ void Logger::println(const uint8 level, const char* fmt, ...)
 }
 
 
-void Logger::config(std::string dir, std::string file, bool showConsole /*= true*/, int32 size /*= 0*/)
+void Logger::config(std::string dir, std::string file, bool showConsole /*= true*/, int32 out_level /*=LOG_DEBUG*/, int32 size /*= 0*/)
 {
 	_logdir = dir;
 	_filename = file;
 	_extenSize = size;
 	_toConsole = showConsole;
+	_out_level = out_level;
+}
+
+void Logger::_flush()
+{
+	while (!_contents.empty())
+	{
+		_logfile->write( _contents.front().c_str(), _contents.front().length());
+		_contents.pop();
+	}
+	_logfile->flush();
+	_logfile->close();
+
+	delete _logfile;
+	_logfile = NULL;
+}
+
+void Logger::flush()
+{
+	_flush();
+	stop();
 }
 
 

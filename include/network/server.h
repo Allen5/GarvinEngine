@@ -24,6 +24,8 @@ namespace GarvinEngine
 			Server();
 			virtual ~Server();
 
+			void config(std::string host = "127.0.0.1", uint16 port = 9090, uint16 backlog = 10);
+
 			virtual bool open() = 0;
 			virtual void close();
 			virtual bool kick(Session* session);
