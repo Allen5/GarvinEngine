@@ -16,6 +16,7 @@ namespace GarvinEngine
 			Handler();
 			virtual ~Handler();
 			virtual Response* handle(Request* req);
+			virtual void handle(Response* resp);
 		};
 	}
 

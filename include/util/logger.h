@@ -5,7 +5,11 @@
 #include <util/thread.h>
 #include <util/datetime.h>
 #include <fstream>
+#if defined(_WIN32) || defined(_WIN64)
 #include <direct.h>
+#else
+#include <sys/stat.h>
+#endif
 
 namespace GarvinEngine
 {

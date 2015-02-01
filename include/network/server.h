@@ -6,7 +6,7 @@
 #pragma once
 
 #include <public.h>
-#include <network/session.h>
+#include <network/sessionManager.h>
 #include <network/request.h>
 #include <network/response.h>
 #include <network/handler.h>
@@ -36,15 +36,11 @@ namespace GarvinEngine
 
 			virtual Request* request(SOCKET sockfd) = 0;
 			virtual void response(SOCKET sockfd, Response* resp) = 0;
-			
-			void addSession(Session* session);
-			Session* getSession(uint64 sessionId);
-			Session* getSessionBySockfd(int32 sockfd);
-			void removeSession(uint64 sessionId);
-			void listSession(std::vector<Session*>& sessions);
 
+			SessionManager* getSessionManager() { return _session_manager; }
 		private:
-			std::map<uint64, Session*> _sessions;
+
+			SessionManager* _session_manager;
 			std::map<uint32, Handler*> _handlers;
 
 			MEMBER_VARIBLE(std::string, host);

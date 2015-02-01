@@ -3,9 +3,14 @@
 
 #include <public.h>
 #include <network/handler.h>
-#include <network/session.h>
 #include <util/thread.h>
-#include <network/request.h>
+#include <network/response.h>
+
+#if defined(_WIN32) || defined(_WIN64)
+
+#else
+#include <sys/socket.h>
+#endif
 
 using namespace GarvinEngine::Util;
 
@@ -23,15 +28,14 @@ namespace GarvinEngine
 		public:
 
 			virtual bool conn() = 0;
-			void close();
+			void disconn();
 
 			void onResponse(uint32 proto, Handler* handler);
 			void onNotify(uint32 proto, Handler* handler);
 			void onClose(Handler* handler);
-			void process(Request* request);
+			void process(Response* request);
 
 			virtual void run();
-
 
 		private:
 			MEMBER_VARIBLE(std::string, ip);

@@ -9,10 +9,10 @@ Server::Server()
 : _host("")
 , _port(0)
 , _backlog(0)
-, _sessionID(0)
 {
-	_sessions.clear();
-	_handlers.clear();
+  _handlers.clear();
+  _session_manager = SessionManager::getInstance();
+  _session_manager->init();
 }
 
 Server::~Server()
@@ -22,87 +22,53 @@ Server::~Server()
 
 void GarvinEngine::Network::Server::config(std::string host, uint16 port, uint16 backlog)
 {
-	this->_host = host;
-	this->_port = port;
-	this->_backlog = backlog;
-}
-
-
-void Server::addSession(Session* session)
-{
-	_sessions[session->sid()] = session;
-}
-
-Session* Server::getSession(uint64 sessionId)
-{
-	std::map<uint64, Session*>::iterator iter = _sessions.find(sessionId);
-	if (iter != _sessions.end()) return iter->second;
-	return NULL;
-}
-
-Session* Server::getSessionBySockfd(int32 sockfd)
-{
-	std::map<uint64, Session*>::iterator iter = _sessions.begin();
-	for (; iter != _sessions.end(); iter++) {
-		if (iter->second->sockfd() == sockfd) return iter->second;
-	}
-	return NULL;
-}
-
-void Server::listSession(std::vector<Session*>& sessions)
-{
-	sessions.clear();
-	std::map<uint64, Session*>::iterator iter = _sessions.begin();
-	for (; iter != _sessions.end(); iter++) {
-		sessions.push_back(iter->second);
-	}
+  this->_host = host;
+  this->_port = port;
+  this->_backlog = backlog;
 }
 
 void Server::process(Session* session, Request* request)
 {
-	std::map<uint32, Handler*>::iterator iter = _handlers.find(request->protoID());
-	if (iter == _handlers.end()) return ;
+  std::map<uint32, Handler*>::iterator iter = _handlers.find(request->protoID());
+  if (iter == _handlers.end()) return ;
 
-	Response* resp = iter->second->handle(request);
-	if (resp == NULL) return;
+  Response* resp = iter->second->handle(request);
+  if (resp == NULL) return;
 
-	resp->setProto(request->protoID());
-	response(session->sockfd(), resp);
+  resp->setProto(request->protoID());
+  response(session->sockfd(), resp);
 }
 
 void Server::on(uint32 protoId, Handler* handler)
 {
-	_handlers[protoId] = handler;
-}
-
-void Server::removeSession(uint64 sessionId)
-{
-	std::map<uint64, Session*>::iterator it = _sessions.find(sessionId);
-	if (it == _sessions.end()) return;
-	_sessions.erase(it);
+  _handlers[protoId] = handler;
 }
 
 void Server::broadcast(std::vector<Session*>& sessions, Response* resp)
 {
-	std::vector<Session*>::iterator iter = sessions.begin();
-	for (; iter != sessions.end(); iter++) response((*iter)->sockfd(), resp);
+  std::vector<Session*>::iterator iter = sessions.begin();
+  for (; iter != sessions.end(); iter++) response((*iter)->sockfd(), resp);
 }
 
 bool Server::kick(Session* session)
 {
-	removeSession(session->sid());
-	return session->close();
+  bool ret = session->close();
+  _session_manager->remove(session);
+  return ret;
 }
 
 void Server::close()
 {
-	std::map<uint64, Session*>::iterator iter = _sessions.begin();
-	for (; iter != _sessions.end(); iter++) kick(iter->second);
+  std::vector<Session*> sessions;
+  _session_manager->list(sessions);
 
-	if (CLOSE(_listenfd) < 0) { 
-		//log sth;
-	}
+  std::vector<Session*>::iterator iter = sessions.begin();
+  for (; iter != sessions.end(); iter++) kick(*iter);
 
+  if (CLOSE(_listenfd) < 0) {
+    perror("Server::close() close listenfd failed");
+  }
+  
 #if defined(_WIN32) || defined(_WIN64)
 	WSACleanup();
 #endif //windows should cleanup the socket

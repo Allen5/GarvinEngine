@@ -26,26 +26,25 @@ bool TCPNonblockServer::open()
 		int32 nready = select(_maxfd + 1, &rset, NULL, NULL, NULL);
 
 		if (FD_ISSET(listenfd(), &rset)) {//acception connection
-			Session* session = _accept(clientaddr);
-			addSession(session);
-			_setfd(session->sockfd());
+			SOCKET sockfd = _accept(clientaddr);
+			_setfd(sockfd);
 			if (--nready <= 0) continue;
 		}
 
 		for (int32 i = 0; i <= _maxindex; i++) { //recv message
 
-			if (_clientfd[i] <= 0) continue;
+		  if (_clientfd[i] <= 0) continue;
 
-			if (FD_ISSET(_clientfd[i], &rset)) {
-				Session* session = getSessionBySockfd(_clientfd[i]);
-				if (session == NULL) continue;
+		  if (FD_ISSET(_clientfd[i], &rset)) {
+		    Session* session = getSessionManager()->get(_clientfd[i]);
+		    if (session == NULL) continue;
 
-				Request* req = request(session->sockfd());
-				if (req == NULL) continue;
+		    Request* req = request(session->sockfd());
+		    if (req == NULL) continue;
 
-				process(session, req);
-				if (--nready <= 0) break;
-			}
+		    process(session, req);
+		    if (--nready <= 0) break;
+		  }
 
 		}
 
@@ -59,9 +58,8 @@ bool TCPNonblockServer::open()
 
 		//accept connections
 		if (_clientfd[0].revents & POLLRDNORM) {
-			Session* session = _accept(clientaddr);
-			addSession(session);
-			_setfd(session->sockfd());
+			SOCKET sockfd = _accept(clientaddr);
+			_setfd(sockfd);
 			if (--nready <= 0) continue;
 		}
 
@@ -70,7 +68,7 @@ bool TCPNonblockServer::open()
 			if (_clientfd[i].fd <= 0) continue;
 
 			if (_clientfd[i].revents & (POLLRDNORM | POLLERR)) {
-				Session* session = getSessionBySockfd(_clientfd[i]);
+			  Session* session = getSessionManager()->get(_clientfd[i]);
 				if (session == NULL) continue;
 
 				Request* req = request(session->sockfd());
@@ -233,7 +231,7 @@ bool TCPNonblockServer::_bind()
 
 #if defined(_WIN32) || defined(_WIN64)
 	WSADATA wsadata;
-	int ret = WSAStartup(MAKEWORD(2, 2), &wsadata);
+	int32 ret = WSAStartup(MAKEWORD(2, 2), &wsadata);
 	if (ret != 0) {
 		LOG_ERROR("TCPNonblockServer::_bind. WSAStartup failed. errno:%d", ret);
 		return false;
@@ -289,15 +287,11 @@ Session* TCPNonblockServer::_accept(sockaddr_in& clientaddr)
 #endif
 	int32 clientfd = accept(listenfd(), (struct sockaddr *)&clientaddr, &len);
 	if (clientfd < 0) {
-		//todo log sth
+	  perror("TCPNonblockServer::_accept. accept() failed.");
 		return NULL;
 	}
 
-	Session* session = new Session();
-	session->sockfd(clientfd);
-	sessionID(sessionID() + 1);
-	session->sid(sessionID());
-
+	Session* session = getSessionManager()->create(clientfd);
 	char *tmpbuf = inet_ntoa(clientaddr.sin_addr);
 	session->ip(tmpbuf);
 	delete tmpbuf;
@@ -306,5 +300,5 @@ Session* TCPNonblockServer::_accept(sockaddr_in& clientaddr)
 
 	//todo login time;
 	session->loginTime(0);
-	return session;
+	return clientfd;
 }

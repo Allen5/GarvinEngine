@@ -6,17 +6,24 @@ using namespace GarvinEngine::Network;
 
 bool TCPClient::conn()
 {
+#if defined(_WIN32) || defined(_WIN64)
+  WSADATA wsdata;
+  int32 ret = WSAStartup(MAKEWORD(2, 2), &wsadata);
+  if (ret != 0) {
+    std::cout<<"TCPClient::conn(). WSAStartup() failed. errno:"<<WSAGetLastError()<<std::endl;
+    return false;
+  }
+#endif
+  sockfd(socket(AF_INET, SOCK_STREAM, 0));
+  if (sockfd() < 0) {
+    //log sth
+    return false;
+  }
 
-	sockfd(socket(AF_INET, SOCK_STREAM, 0));
-	if (sockfd() < 0) {
-		//log sth
-		return false;
-	}
-
-	sockaddr_in serveraddr;
-	memset(&serveraddr, 0, sizeof(serveraddr));
-	serveraddr.sin_family = AF_INET;
-	serveraddr.sin_port = htons(port());
+  sockaddr_in serveraddr;
+  memset(&serveraddr, 0, sizeof(serveraddr));
+  serveraddr.sin_family = AF_INET;
+  serveraddr.sin_port = htons(port());
 
 #if defined(_WIN32) || defined(_WIN64)
 	serveraddr.sin_addr.S_un.S_addr = inet_addr(ip().c_str());
@@ -83,12 +90,14 @@ void TCPClient::_init()
 	_clientfd.fd = sockfd();
 	_clientfd.events = POLLRDNORM;
 #endif //init poll fd
+
+	memset(_buf, 0, MAX_BUF);
+	_pos = 0;
 }
 
-Request* TCPClient::_getRequest()
+Response* TCPClient::_getResponse()
 {
-	int8 buf[MAX_BUF] = { 0 };
-	int32 n = recv(sockfd(), buf, MAX_BUF, 0);
+	int32 n = recv(sockfd(), _buf, MAX_BUF, 0);
 
 	if (n < 0) {//handle connreset error
 		if (errno == ECONNRESET) { CLOSE(sockfd()); sockfd(-1); }
@@ -102,7 +111,36 @@ Request* TCPClient::_getRequest()
 		return NULL;
 	}
 
-	Package* pack = new Package(buf);
-	Request* request = new Request(pack);
-	return request;
+	return _packageDeal(n);
+}
+
+Response* TCPClient::_packageDeal(int32 n)
+{
+  	Package* pack = new Package(_buf);
+	if ((uint32)n < pack->getHeadLen()) {//only get package head but no body
+		_pos += n;
+		delete pack;
+		pack = NULL;
+		return NULL;
+	}
+
+	if ((uint32)n < pack->getPackLen()) {//package was splited
+		_pos += n;
+		delete pack;
+		pack = NULL;
+		return NULL;
+	}
+
+	if ((uint32)n >= pack->getPackLen()) {//package was clinged or package was right size
+		memset(_buf, 0, pack->getPackLen());
+		_pos = 0;
+	}
+
+	if ((uint32)n > pack->getPackLen()) {//package was clinged
+		memmove(_buf, _buf + pack->getPackLen(), n - pack->getPackLen());
+		memset(_buf + pack->getPackLen(), 0, n - pack->getPackLen());
+	}
+
+	Response* resp = new Response(pack);
+	return resp;
 }

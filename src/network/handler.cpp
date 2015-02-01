@@ -18,3 +18,8 @@ Response* Handler::handle(Request* req)
 {
 	return NULL;
 }
+
+void Handler::handle(Response* resp)
+{
+  return NULL;
+}
