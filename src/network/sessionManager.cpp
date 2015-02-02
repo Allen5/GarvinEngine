@@ -19,7 +19,7 @@ void SessionManager::init()
   _session_id = 0;
 }
 
-Session* SessionManager::create(uint32 sockfd)
+Session* SessionManager::create(SOCKET sockfd)
 {
   Session* session = NULL;
   if (!_session_pool.empty())
@@ -75,7 +75,7 @@ void SessionManager::list(std::vector<Session*>& sessions)
        iter != _session_map.end();
        iter++)
     {
-      session.push_back(iter->second);
+      sessions.push_back(iter->second);
     }
 }
 

@@ -11,6 +11,7 @@ bool TCPNonblockServer::open()
 {
 	if (!_init()) return false;
 
+	sockaddr_in clientaddr;
 #if defined(_WIN32) || defined(_WIN64)
 
 	FD_SET rset;
@@ -19,7 +20,6 @@ bool TCPNonblockServer::open()
 	//set listen fd
 	FD_SET(listenfd(), &_clientset);
 
-	sockaddr_in clientaddr;
 	for (;;) {//win-select
 
 		rset = _clientset;
@@ -51,10 +51,9 @@ bool TCPNonblockServer::open()
 	}
 
 #else
-
 	for (;;) {//endless loop
 
-		int32 nready = poll(_clientfd, m_maxindex + 1, INFTIM);
+		int32 nready = poll(_clientfd, _maxindex + 1, INFTIM);
 
 		//accept connections
 		if (_clientfd[0].revents & POLLRDNORM) {
@@ -68,7 +67,7 @@ bool TCPNonblockServer::open()
 			if (_clientfd[i].fd <= 0) continue;
 
 			if (_clientfd[i].revents & (POLLRDNORM | POLLERR)) {
-			  Session* session = getSessionManager()->get(_clientfd[i]);
+			  Session* session = getSessionManager()->get((SOCKET)_clientfd[i].fd);
 				if (session == NULL) continue;
 
 				Request* req = request(session->sockfd());
@@ -105,7 +104,7 @@ bool TCPNonblockServer::_init()
 	FD_ZERO(&_clientset);
 #else
 	//make the first fd to be listen fd
-	_clientfd[0].fd = _listenfd;
+	_clientfd[0].fd = listenfd();
 	_clientfd[0].events = POLLRDNORM;
 
 	for (int i = 1; i < OPEN_MAX; i++) _clientfd[i].fd = -1;
@@ -241,8 +240,8 @@ bool TCPNonblockServer::_bind()
 	//bind address and listen on port
 	listenfd(socket(AF_INET, SOCK_STREAM, 0));
 	if (listenfd() < 0) {
-		LOG_ERROR("TCPNonblockServer::_bind() socket failed.");
-		return false;
+	  LOG_ERROR("TCPNonblockServer::_bind() socket failed. listenfd : %d", listenfd());
+	  return false;
 	}
 	
 	sockaddr_in serverAddr;
@@ -253,7 +252,7 @@ bool TCPNonblockServer::_bind()
 #if defined(_WIN32) || defined(_WIN64)
 	serverAddr.sin_addr.S_un.S_addr = inet_addr(host().c_str());
 #else
-	inet_pton(AF_INET, ip(), &serverAddr.sin_addr);
+	inet_pton(AF_INET, host().c_str(), &serverAddr.sin_addr);
 #endif //cross-platform address binding
 
 
@@ -261,14 +260,22 @@ bool TCPNonblockServer::_bind()
 
 	//bind address
 	if (bind(listenfd(), (struct sockaddr*)&serverAddr, sizeof(serverAddr)) < 0) {
+#if defined(_WIN32) || defined(_WIN64)
 		LOG_ERROR("TCPNonblockServer::_bind() bind failed. errno:%d", WSAGetLastError());
+#else
+		LOG_ERROR("TCPNonblockServer::_bind() bind failed. errno:%d", errno);
+#endif
 		CLOSE(listenfd());
 		return false;
 	}
 
 	//listen
 	if (listen(listenfd(), backlog()) < 0) {
+#if defined(_WIN32) || defined(_WIN64)
 		LOG_ERROR("TCPNonblockServer::_bind() listen failed. errno:%d", WSAGetLastError());
+#else
+		LOG_ERROR("TCPNonblockServer::_bind() listen failed. errno:%d", errno);
+#endif
 		CLOSE(listenfd());
 		return false;
 	}
@@ -276,7 +283,7 @@ bool TCPNonblockServer::_bind()
 	return true;
 }
 
-Session* TCPNonblockServer::_accept(sockaddr_in& clientaddr)
+SOCKET TCPNonblockServer::_accept(sockaddr_in& clientaddr)
 {
 	memset(&clientaddr, 0, sizeof(clientaddr));
 
@@ -288,7 +295,7 @@ Session* TCPNonblockServer::_accept(sockaddr_in& clientaddr)
 	int32 clientfd = accept(listenfd(), (struct sockaddr *)&clientaddr, &len);
 	if (clientfd < 0) {
 	  perror("TCPNonblockServer::_accept. accept() failed.");
-		return NULL;
+		return 0;
 	}
 
 	Session* session = getSessionManager()->create(clientfd);

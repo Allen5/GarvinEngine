@@ -52,12 +52,12 @@ void Server::broadcast(std::vector<Session*>& sessions, Response* resp)
 
 bool Server::kick(Session* session)
 {
-  bool ret = session->close();
+  bool ret = session->halt();
   _session_manager->remove(session);
   return ret;
 }
 
-void Server::close()
+void Server::halt()
 {
   std::vector<Session*> sessions;
   _session_manager->list(sessions);

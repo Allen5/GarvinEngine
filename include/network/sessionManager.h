@@ -2,7 +2,7 @@
 #pragma once
 
 #include <public.h>
-#include <session.h>
+#include <network/session.h>
 
 namespace GarvinEngine
 {
@@ -73,7 +73,7 @@ namespace GarvinEngine
 
     private:
 
-      std::queue<Session*> _session_pool;
+      std::deque<Session*> _session_pool;
       std::map<uint64, Session*> _session_map;
       std::map<SOCKET, Session*> _session_sockfd_map;
 

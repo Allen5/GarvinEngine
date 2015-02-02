@@ -1,16 +1,10 @@
 
 #pragma once
 
-#include <public.h>
+#include <network/netcommon.h>
 #include <network/handler.h>
 #include <util/thread.h>
 #include <network/response.h>
-
-#if defined(_WIN32) || defined(_WIN64)
-
-#else
-#include <sys/socket.h>
-#endif
 
 using namespace GarvinEngine::Util;
 
@@ -33,7 +27,7 @@ namespace GarvinEngine
 			void onResponse(uint32 proto, Handler* handler);
 			void onNotify(uint32 proto, Handler* handler);
 			void onClose(Handler* handler);
-			void process(Response* request);
+			void process(Response* resp);
 
 			virtual void run();
 

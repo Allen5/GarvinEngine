@@ -18,7 +18,7 @@ namespace GarvinEngine
 		private:
 
 			void _init();
-			Response* _getReponse();
+			Response* _getResponse();
 			Response* _packageDeal(int32 n);
 
 		private:

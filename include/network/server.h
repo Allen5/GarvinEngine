@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <public.h>
+#include <network/netcommon.h>
 #include <network/sessionManager.h>
 #include <network/request.h>
 #include <network/response.h>
@@ -27,7 +27,7 @@ namespace GarvinEngine
 			void config(std::string host = "127.0.0.1", uint16 port = 9090, uint16 backlog = 10);
 
 			virtual bool open() = 0;
-			virtual void close();
+			virtual void halt();
 			virtual bool kick(Session* session);
 			virtual void broadcast(std::vector<Session*>& sessions, Response* resp);
 			

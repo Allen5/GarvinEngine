@@ -10,6 +10,7 @@
 #include <map>
 #include <vector>
 #include <queue>
+#include <deque>
 #include <assert.h>
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -18,8 +19,6 @@
 #include <windows.h>
 #else
 #include <unistd.h>
-
-
 #endif //¿çÆ½Ì¨ os»ù´¡¿â
 
 #if defined(_WIN32) || defined(_WIN64)

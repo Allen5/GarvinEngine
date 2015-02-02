@@ -28,7 +28,7 @@ bool TCPClient::conn()
 #if defined(_WIN32) || defined(_WIN64)
 	serveraddr.sin_addr.S_un.S_addr = inet_addr(ip().c_str());
 #else
-	inet_pton(AF_INET, ip().c_str(), &serverAddr.sin_addr);
+	inet_pton(AF_INET, ip().c_str(), &serveraddr.sin_addr);
 #endif //cross-platform address binding
 
 	if (connect(sockfd(), (struct sockaddr*)&serveraddr, sizeof(serveraddr)) < 0) {
@@ -57,8 +57,8 @@ void TCPClient::run()
 		int32 nready = select(sockfd() + 1, &rset, NULL, NULL, NULL);
 
 		if (FD_ISSET(sockfd(), &rset)) {//acception connection
-			Request* request = _getRequest();
-			process(request);
+			Response* resp = _getResponse();
+			process(resp);
 			if (--nready <= 0) continue;
 		}
 
@@ -68,12 +68,12 @@ void TCPClient::run()
 
 	for (;;) {//endless loop
 
-		int32 nready = poll(_clientfd, sockfd() + 1, INFTIM);
+		int32 nready = poll(&_clientfd, sockfd() + 1, INFTIM);
 
 		//accept connections
 		if (_clientfd.revents & POLLRDNORM) {
-			Request* request = _getRequest();
-			process(request);
+			Response* resp = _getResponse();
+			process(resp);
 			if (--nready <= 0) continue;
 		}
 

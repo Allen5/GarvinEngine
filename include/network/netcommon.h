@@ -3,6 +3,23 @@
 
 #include <public.h>
 
+#if defined(_WIN32) || defined(_WIN64)
+
+#else
+
+#include <sys/time.h>
+#include <sys/socket.h>
+#include <poll.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <limits.h>
+
+#ifndef INFTIM
+#define INFTIM -1
+#endif
+
+#endif
+
 namespace GarvinEngine
 {
 

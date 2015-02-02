@@ -19,10 +19,14 @@ Session::~Session()
 
 }
 
-bool Session::close()
+bool Session::halt()
 {
 	//close connection
+#if defined(_WIN32) || defined(_WIN64)
 	int32 ret = shutdown(sockfd(), SD_BOTH);//make sure data was send
+#else
+	int32 ret = shutdown(sockfd(), SHUT_RDWR);
+#endif
 	if (ret == -1) {
 		//todo
 		//log it

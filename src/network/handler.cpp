@@ -21,5 +21,5 @@ Response* Handler::handle(Request* req)
 
 void Handler::handle(Response* resp)
 {
-  return NULL;
+  return;
 }

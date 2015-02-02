@@ -8,8 +8,9 @@ namespace GarvinEngine
 
 	namespace Network
 	{
-
+#ifndef OPEN_MAX
 #define OPEN_MAX 1024
+#endif
 
 		class TCPNonblockServer : public Server
 		{
@@ -24,7 +25,7 @@ namespace GarvinEngine
 			bool _init();
 			void _setfd(int32 sockfd);
 			bool _bind();
-			Session* _accept(sockaddr_in& clientaddr);
+			SOCKET _accept(sockaddr_in& clientaddr);
 
 			Request* _packgeDeal(int32 n);
 				
