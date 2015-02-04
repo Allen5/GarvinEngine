@@ -39,7 +39,7 @@ namespace GarvinEngine
 			virtual ~Logger();
 
 			virtual void run();
-			void println(const uint8 level, const char* fmt, ...);
+			void println(const uint8 level, const char* fmt = "", ...);
 
 			/**
 			 * 配置日志文件的路径，日志文件名称，日志文件固定大小
