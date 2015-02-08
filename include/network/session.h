@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include <public.h>
+#include <network/netcommon.h>
 #include <network/request.h>
 #include <network/response.h>
 
@@ -21,7 +21,7 @@ namespace GarvinEngine
 		public:
 			Session();
 			virtual ~Session();
-			bool close();
+			bool halt();
 
 		private:
 

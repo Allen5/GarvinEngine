@@ -19,7 +19,7 @@ void Logger::run()
 	while (true)
 	{
 		if (_contents.size() <= 0) {
-			Sleep(10);
+			SLEEP(10);
 			continue;
 		}
 
@@ -29,7 +29,7 @@ void Logger::run()
 
 		_logfile->write(_contents.front().c_str(), _contents.front().length());
 		_contents.pop();
-		Sleep(10);
+		SLEEP(10);
 	}
 
 }
@@ -49,16 +49,21 @@ bool Logger::_create(std::string name)
 	if (_logdir != "") { //create dir if dir is not exist
 		std::fstream _dir;
 		_dir.open(_logdir, std::ios::in);
+#if defined(_WIN32) || defined(_WIN64)
 		if (!_dir) _mkdir(_logdir.c_str());
+#else
+		if (!_dir) mkdir(_logdir.c_str(), S_IRWXU);
+#endif
 	}
 
 	_logfilename = _logdir + _curtime->getDate() + "." + XString::getInstance()->toString(_extenID) + "." + name + ".log";
 
 	_logfile = new std::ofstream(_logfilename.c_str(), std::ios::app);
 	if (!_logfile) {
-		std::cout << GetLastError() << std::endl;
-		std::cout << "create file " << _logfilename << " failed" << std::endl;
-		return false;
+	  int8 buf[128] = {0};
+	  sprintf(buf, "Logger::_create() create file[%s] failed().", _logfilename.c_str());
+	  perror(buf);
+	  return false;
 	}
 
 	return true;
@@ -131,7 +136,11 @@ void Logger::println(const uint8 level, const char* fmt, ...)
 	va_start(args, fmt);
 
 	char buf[1024] = { 0 };
+#if defined(_WIN32) || defined(_WIN64)
 	vsnprintf_s(buf, 1024, fmt, args);
+#else
+	vsnprintf(buf, 1024, fmt, args);
+#endif
 	va_end(args);
 
 	content += std::string(buf);

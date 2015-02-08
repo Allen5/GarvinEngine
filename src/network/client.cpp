@@ -26,9 +26,13 @@ Client::~Client()
 	for (; iter != _handlers.end(); iter++) delete iter->second;
 }
 
-void Client::close()
+void Client::disconn()
 {
+#if defined(_WIN32) || defined(_WIN64)
 	int32 ret = shutdown(_sockfd, SD_BOTH);
+#else
+	int32 ret = shutdown(_sockfd, SHUT_RDWR);
+#endif
 	if (ret < 0) {
 		std::cout << "Client::close() shutdown failed." << std::endl;
 	}
@@ -54,9 +58,9 @@ void Client::onClose(Handler* handler)
 void Client::process(Response* resp)
 {
 	if (resp == NULL) { //server is down or something wrong
-		_closeHandler->handle(resp);
-		close();
-		return;
+	  _closeHandler->handle((Response*)NULL);
+	  disconn();
+	  return;
 	}
 
 	std::map<uint32, Handler*>::iterator iter = _handlers.find(resp->protoID());

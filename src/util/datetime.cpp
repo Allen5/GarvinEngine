@@ -30,14 +30,22 @@ Datetime::~Datetime()
 std::string Datetime::getDate()
 {
 	char buf[32] = { 0 };
+#if defined(_WIN32) || defined(_WIN64)
 	sprintf_s(buf, "%04d-%02d-%02d", _year, _month, _day);
+#else
+	sprintf(buf, "%04d-%02d-%02d", _year, _month, _day);
+#endif
 	return string(buf);
 }
 
 std::string Datetime::getTime()
 {
 	char buf[32] = { 0 };
+#if defined(_WIN32) || defined(_WIN64)
 	sprintf_s(buf, "%02d:%02d:%02d", _hour, _minute, _second);
+#else
+	sprintf(buf, "%02d:%02d:%02d", _hour, _minute, _second);
+#endif
 	return string(buf);
 }
 
@@ -48,14 +56,24 @@ std::string Datetime::getDateTime()
 
 void Datetime::_maketime(time_t now)
 {
-	struct tm _now;
-	localtime_s(&_now, &now);
+	struct tm *_now;
 
-	year(1900 + _now.tm_year);	//year from 1900;
-	month(_now.tm_mon + 1);		//tm_mon [0, 11].
-	day(_now.tm_mday);
-	hour(_now.tm_hour);
-	minute(_now.tm_min);
-	second(_now.tm_sec);
+#if defined(_WIN32) || defined(_WIN64)
+	localtime_s(_now, &now);
+#else
+	_now = localtime(&now);
+#endif
+
+	if (_now == NULL) {
+	  std::cout << "Datetime::_maketime. _now == NULL" << std::endl;
+	  return ;
+	}
+	
+	year(1900 + _now->tm_year);	//year from 1900;
+	month(_now->tm_mon + 1);		//tm_mon [0, 11].
+	day(_now->tm_mday);
+	hour(_now->tm_hour);
+	minute(_now->tm_min);
+	second(_now->tm_sec);
 	timestamp(0);
 }

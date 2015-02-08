@@ -10,6 +10,7 @@
 #include <map>
 #include <vector>
 #include <queue>
+#include <deque>
 #include <assert.h>
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -18,9 +19,6 @@
 #include <windows.h>
 #else
 #include <unistd.h>
-
-typedef int32 SOCKET; 
-
 #endif //跨平台 os基础库
 
 #if defined(_WIN32) || defined(_WIN64)
@@ -116,6 +114,8 @@ typedef unsigned long long uint64;
 
 #endif //_WIN32 || _WIN64
 
+typedef int32 SOCKET; 
+
 //公共函数
 #if defined(_WIN32) || defined(_WIN64)
 #define bzero(a, b) memset(a, 0, b);
@@ -129,13 +129,25 @@ typedef unsigned long long uint64;
 #define CLOSE(sockfd) close(sockfd)
 #endif //cross-platform close file descriptor of socket
 
+#if defined(_WIN32) || defined(_WIN64)
+#define SLEEP(val) Sleep(val)
+#else
+#define SLEEP(val) \
+{\
+ struct timeval delay;\
+ delay.tv_sec = 0;\
+ delay.tv_usec = val * 1000;\
+ select(0, NULL, NULL, NULL, &delay);\
+}
+#endif
+
 //单例声明
 #undef SINGLETON_DECALRE
 #define SINGLETON_DECALRE(cls) \
 private: static cls * _instance; \
 private: cls(){} \
 private: cls(const cls&) {} \
-private: cls& operator = (const cls&) {} \
+private: cls& operator = (const cls&) { return *this; }			\
 public: static cls * getInstance() { if (_instance == NULL) _instance = new cls(); return _instance; }
 
 //单例定义

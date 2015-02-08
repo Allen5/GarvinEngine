@@ -193,7 +193,7 @@ std::string GarvinEngine::Config::DataRow::_find(std::string field)
 
 bool GarvinEngine::Config::DataRow::_checkRange(uint32 index)
 {
-	if (index < 0 || index > _row.size()) return false;
+	if (index > _row.size()) return false;
 	return true;
 }
 
@@ -214,7 +214,7 @@ GarvinEngine::Config::DataTable::~DataTable()
 
 GarvinEngine::Config::DataRow* GarvinEngine::Config::DataTable::getRow(uint32 index)
 {
-	if (index < 0 || index > _table.size()) return NULL;
+	if (index > _table.size()) return NULL;
 	
 	std::string key = XString::getInstance()->toString(index);
 	std::map<std::string, DataRow*>::iterator iter = _table.find(key);

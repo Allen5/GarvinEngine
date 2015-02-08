@@ -12,16 +12,20 @@ namespace GarvinEngine
 		class TCPClient : public Client
 		{
 		public:
-			virtual bool conn(std::string serverIP, uint16 serverPort, uint32 innerTime);
+			virtual bool conn();
 			virtual void run();
-
 
 		private:
 
 			void _init();
-			Response* _getResp();
+			Response* _getResponse();
+			Response* _packageDeal(int32 n);
 
 		private:
+
+			int8 _buf[MAX_BUF];
+			uint32 _pos;
+			
 #if defined(_WIN32) || defined(_WIN64)
 			int32 _clientfd;
 			FD_SET _clientset;

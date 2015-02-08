@@ -5,7 +5,11 @@
 #include <util/thread.h>
 #include <util/datetime.h>
 #include <fstream>
+#if defined(_WIN32) || defined(_WIN64)
 #include <direct.h>
+#else
+#include <sys/stat.h>
+#endif
 
 namespace GarvinEngine
 {
@@ -35,7 +39,7 @@ namespace GarvinEngine
 			virtual ~Logger();
 
 			virtual void run();
-			void println(const uint8 level, const char* fmt, ...);
+			void println(const uint8 level, const char* fmt = "", ...);
 
 			/**
 			 * 配置日志文件的路径，日志文件名称，日志文件固定大小
