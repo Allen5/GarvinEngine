@@ -12,14 +12,14 @@ namespace GarvinEngine
 		class TCPClient : public Client
 		{
 		public:
-			virtual bool conn();
+			virtual bool conn(std::string serverIP, uint16 serverPort, uint32 innerTime);
 			virtual void run();
 
 
 		private:
 
 			void _init();
-			Request* _getRequest();
+			Response* _getResp();
 
 		private:
 #if defined(_WIN32) || defined(_WIN64)

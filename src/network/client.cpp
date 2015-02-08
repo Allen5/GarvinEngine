@@ -51,16 +51,16 @@ void Client::onClose(Handler* handler)
 	_closeHandler = handler;
 }
 
-void Client::process(Request* request)
+void Client::process(Response* resp)
 {
-	if (request == NULL) { //server is down or something wrong
-		_closeHandler->handle(NULL);
+	if (resp == NULL) { //server is down or something wrong
+		_closeHandler->handle(resp);
 		close();
 		return;
 	}
 
-	std::map<uint32, Handler*>::iterator iter = _handlers.find(request->protoID());
-	iter->second->handle(request);
+	std::map<uint32, Handler*>::iterator iter = _handlers.find(resp->protoID());
+	iter->second->handle(resp);
 
 }
 

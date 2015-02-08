@@ -4,30 +4,44 @@
 using namespace GarvinEngine;
 using namespace GarvinEngine::Network;
 
-bool TCPClient::conn()
+bool TCPClient::conn(std::string serverIP, uint16 serverPort, uint32 innerTime)
 {
+
+#if defined(_WIN32) || defined(_WIN64)
+	WSADATA wsadata;
+	int ret = WSAStartup(MAKEWORD(2, 2), &wsadata);
+	if (ret != 0) {
+		std::cout << "WSAStartup() failed. " << GetLastError() << std::endl;
+		return false;
+	}
+#endif
 
 	sockfd(socket(AF_INET, SOCK_STREAM, 0));
 	if (sockfd() < 0) {
-		//log sth
+		std::cout << "socket() failed. " << GetLastError() << std::endl;
 		return false;
 	}
 
 	sockaddr_in serveraddr;
 	memset(&serveraddr, 0, sizeof(serveraddr));
 	serveraddr.sin_family = AF_INET;
-	serveraddr.sin_port = htons(port());
+	serveraddr.sin_port = htons(serverPort);
 
 #if defined(_WIN32) || defined(_WIN64)
-	serveraddr.sin_addr.S_un.S_addr = inet_addr(ip().c_str());
+	serveraddr.sin_addr.S_un.S_addr = inet_addr(serverIP.c_str());
 #else
-	inet_pton(AF_INET, ip().c_str(), &serverAddr.sin_addr);
+	inet_pton(AF_INET, serverIP.c_str(), &serverAddr.sin_addr);
 #endif //cross-platform address binding
 
 	if (connect(sockfd(), (struct sockaddr*)&serveraddr, sizeof(serveraddr)) < 0) {
 		//log sth
+		std::cout << "connect() failed. " << GetLastError() << std::endl;
 		return false;
 	}
+
+	//keep the host ip and port
+	ip(serverIP);
+	port(serverPort);
 
 	return true;
 
@@ -50,8 +64,8 @@ void TCPClient::run()
 		int32 nready = select(sockfd() + 1, &rset, NULL, NULL, NULL);
 
 		if (FD_ISSET(sockfd(), &rset)) {//acception connection
-			Request* request = _getRequest();
-			process(request);
+			Response* resp = _getResp();
+			process(resp);
 			if (--nready <= 0) continue;
 		}
 
@@ -65,8 +79,8 @@ void TCPClient::run()
 
 		//accept connections
 		if (_clientfd.revents & POLLRDNORM) {
-			Request* request = _getRequest();
-			process(request);
+			Response* resp = _getResp();
+			process(resp);
 			if (--nready <= 0) continue;
 		}
 
@@ -85,8 +99,37 @@ void TCPClient::_init()
 #endif //init poll fd
 }
 
-Request* TCPClient::_getRequest()
+Response* TCPClient::_getResp()
 {
+	int32 n = recv(sockfd(), _buf + _pos, MAX_BUF, 0);
+
+	if (n < 0) {//handle connreset error
+
+#if defined(_WIN32) || defined(_WIN64)
+		FD_CLR(sockfd(), &_clientset);
+#endif
+
+		if (errno == ECONNRESET) { CLOSE(sockfd()); sockfd(-1); }
+		else { /*log server read error*/ }
+		return NULL;
+	}
+	else if (n == 0) {//handle client close event
+
+#if defined(_WIN32) || defined(_WIN64)
+		FD_CLR(sockfd(), &_clientset);
+#endif
+
+		//todo
+		//should add close event handler and invoke it
+
+		CLOSE(sockfd);
+		//log client closed the connect
+		sockfd(-1);
+		return NULL;
+	}
+
+	return _packgeDeal(n);
+
 	int8 buf[MAX_BUF] = { 0 };
 	int32 n = recv(sockfd(), buf, MAX_BUF, 0);
 

@@ -1,7 +1,6 @@
 
 #include <network/clientFactory.h>
 #include <network/tcpclient.h>
-#include <network/netcommon.h>
 
 using namespace GarvinEngine;
 using namespace GarvinEngine::Network;
