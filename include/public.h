@@ -145,9 +145,9 @@ typedef int32 SOCKET;
 #undef SINGLETON_DECALRE
 #define SINGLETON_DECALRE(cls) \
 private: static cls * _instance; \
-private: cls(){} \
-private: cls(const cls&) {} \
-private: cls& operator = (const cls&) { return *this; }			\
+private: cls(){ memset((void*)this, 0, sizeof(*this)); }	\
+private: cls(const cls& var) { if (&var == this) return; memset((void*)this, 0, sizeof(*this)); memcpy((void*)this, (void*)&var, sizeof(var)); } \
+private: cls& operator = (const cls&) { if (&var == this) return *this; memset((void*)this, 0, sizeof(*this)); memcpy((void*)this, (void*)&var, sizeof(var)); return *this; } \
 public: static cls * getInstance() { if (_instance == NULL) _instance = new cls(); return _instance; }
 
 //单例定义
@@ -156,8 +156,8 @@ public: static cls * getInstance() { if (_instance == NULL) _instance = new cls(
 cls * cls::_instance = NULL; 
 
 //成员变量定义
-#undef MEMBER_VARIBLE
-#define MEMBER_VARIBLE(tpp, ppt) \
+#undef MEMBER_VARIABLE
+#define MEMBER_VARIABLE(tpp, ppt) \
 private: tpp _##ppt; \
 public: void ppt(tpp val) { _##ppt = val; } \
 public: tpp ppt() { return _##ppt; }
