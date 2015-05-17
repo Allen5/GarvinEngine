@@ -8,47 +8,37 @@
 #include <sys/timeb.h>
 #include <time.h>
 
-namespace GarvinEngine
+class Datetime
 {
+  
+ public:
+  
+  Datetime();
+  virtual ~Datetime();
 
-	namespace Util
-	{
+ public:
+  
+  //获取日期字符串，格式为YYYY-MM-dd
+  std::string getDate();
 
-		class Datetime
-		{
+  //获取时间字符串，格式为HH:MM:SS
+  std::string getTime();
 
-		public:
+  //获取日期时间字符串，格式为 YYYY-MM-dd HH:MM:SS
+  std::string getDateTime();
 
-			Datetime();
-			virtual ~Datetime();
+ private:
 
-		public:
+  void _maketime(time_t now);
 
-			//获取日期字符串，格式为YYYY-MM-dd
-			std::string getDate();
+ private:
 
-			//获取时间字符串，格式为HH:MM:SS
-			std::string getTime();
+  MEMBER_VARIBLE(uint64, timestamp);
+  MEMBER_VARIBLE(uint16, year);
+  MEMBER_VARIBLE(uint16, month);
+  MEMBER_VARIBLE(uint16, day);
+  MEMBER_VARIBLE(uint16, hour);
+  MEMBER_VARIBLE(uint16, minute);
+  MEMBER_VARIBLE(uint16, second);
 
-			//获取日期时间字符串，格式为 YYYY-MM-dd HH:MM:SS
-			std::string getDateTime();
-
-		private:
-
-			void _maketime(time_t now);
-
-		private:
-
-			MEMBER_VARIBLE(uint64, timestamp);
-			MEMBER_VARIBLE(uint16, year);
-			MEMBER_VARIBLE(uint16, month);
-			MEMBER_VARIBLE(uint16, day);
-			MEMBER_VARIBLE(uint16, hour);
-			MEMBER_VARIBLE(uint16, minute);
-			MEMBER_VARIBLE(uint16, second);
-
-		};
-
-	}
-
-}
+};

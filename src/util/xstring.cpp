@@ -4,7 +4,6 @@
 #include <sstream>
 #include <regex>
 
-using namespace GarvinEngine::Util;
 using namespace std;
 
 SINGLETON_DEFINE(XString);

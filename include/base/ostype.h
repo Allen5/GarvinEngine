@@ -102,3 +102,5 @@ typedef unsigned long long uint64;
 //define socket type
 typedef int32 SOCKET;
 
+//define common invalid value
+#define INVALID -1

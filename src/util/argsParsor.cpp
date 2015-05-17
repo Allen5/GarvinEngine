@@ -3,8 +3,6 @@
 #include <util/xstring.h>
 
 using namespace std;
-using namespace GarvinEngine;
-using namespace GarvinEngine::Util;
 
 SINGLETON_DEFINE(ArgsParsor);
 
@@ -30,7 +28,7 @@ double ArgsParsor::getDouble(string arg, double defaultValue /*= 0.0*/, string d
 	return defaultValue;
 }
 
-bool GarvinEngine::Util::ArgsParsor::getBool(std::string arg, bool defaultValue /*= false*/, std::string desc /*= ""*/)
+bool ArgsParsor::getBool(std::string arg, bool defaultValue /*= false*/, std::string desc /*= ""*/)
 {
 	string val = getString(arg, "0");
 

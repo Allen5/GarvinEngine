@@ -23,6 +23,6 @@
 #include <unistd.h>
 #endif //跨平台 os基础库
 
-#include "ostype.h" //跨平台类型定义
-#include "pubfunc.h"//跨平台函数定义
+#include <base/ostype.h> //跨平台类型定义
+#include <base/pubfunc.h>//跨平台函数定义
 

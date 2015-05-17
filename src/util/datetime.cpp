@@ -3,8 +3,6 @@
 #include <sstream>
 
 using namespace std;
-using namespace GarvinEngine;
-using namespace GarvinEngine::Util;
 
 Datetime::Datetime()
 : _timestamp(0)

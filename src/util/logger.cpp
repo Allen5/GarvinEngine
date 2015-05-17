@@ -2,9 +2,6 @@
 #include <util/logger.h>
 #include <util/xstring.h>
 
-using namespace GarvinEngine;
-using namespace GarvinEngine::Util;
-
 SINGLETON_DEFINE(Logger);
 
 Logger::~Logger()
@@ -76,7 +73,7 @@ bool Logger::_checkDate()
 	Datetime now;
 	if (now.year()	!= _curtime->year())	return false;
 	if (now.month() != _curtime->month())	return false;
-	if (now.day()	!= _curtime->day())		return false;
+	if (now.day()	!= _curtime->day())	return false;
 	return true;
 }
 
