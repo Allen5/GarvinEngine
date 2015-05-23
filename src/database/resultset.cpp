@@ -1,21 +1,15 @@
 
-#inlcude <util/xstring.h>
+#include <util/xstring.h>
 #include <database/resultset.h>
 
 using namespace std;
 
 ResultSet::ResultSet(MYSQL_RES* result)
-:_result_set(result)
-,_row(NULL)
+  :_row(NULL)
 {
   _field_map.clear();
-  if (_result_set == NULL) return;
-
-  uint32 number = mysql_num_fields(_result_set);
-  MYSQL_FIELDS* fileds = mysql_fetch_fields(_result_set);
-
-  for (uint32 i=0; i<number; i++) {
-    _field_map[fields[i].name] = i;
+  if ( !_init(result) ) {
+    //TODO(allenlike@gmail.com):增加日志记录
   }
 }
 
@@ -70,7 +64,7 @@ uint16 ResultSet::getUInt16(const char* field)
   uint16 ret = 0;
   if (field == NULL) return ret;
 
-  XString::getIntsance()->translate(getString(field), ret);
+  XString::getInstance()->translate(getString(field), ret);
   return ret;
 }
 
@@ -88,7 +82,7 @@ uint32 ResultSet::getUInt32(const char* field)
   uint32 ret = 0;
   if (field == NULL) return ret;
 
-  XString::getIntsance()->translate(getString(field), ret);
+  XString::getInstance()->translate(getString(field), ret);
   return ret;
 }
 
@@ -97,7 +91,7 @@ int64 ResultSet::getInt64(const char* field)
   int64 ret = 0;
   if (field == NULL) return ret;
 
-  XString::getIntance()->translate(getString(field), ret);
+  XString::getInstance()->translate(getString(field), ret);
   return ret;
 }
 
@@ -134,10 +128,26 @@ std::string ResultSet::getString(const char* field)
   
   if (field == NULL) return "";
 
-  int32 index = _get_index(key);
+  int32 index = _get_index(field);
   if (index == INVALID) return "";
 
   return string(_row[index], strlen(_row[index]));
+}
+
+bool ResultSet::_init(MYSQL_RES* result)
+{
+  _result_set = result;
+
+  if (_result_set == NULL) return false;
+
+  uint32 number = mysql_num_fields(_result_set);
+  MYSQL_FIELD* fields = mysql_fetch_fields(_result_set);
+
+  for (uint32 i=0; i<number; i++) {
+    _field_map[fields[i].name] = i;
+  }
+
+  return true;
 }
 
 int32 ResultSet::_get_index(const char* key)
@@ -146,7 +156,7 @@ int32 ResultSet::_get_index(const char* key)
 
   if (key == NULL) return ret;
   
-  std::map<std::string, int32>::iterater iter = _field_map.find(key);
+  std::map<std::string, int32>::iterator iter = _field_map.find(key);
   if ( iter != _field_map.end() ) {
     ret = iter->second;
   }

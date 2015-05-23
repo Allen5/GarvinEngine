@@ -93,7 +93,7 @@ void PreparedStatement::set(const int32 index, const int8 value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_TINY;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = false;
 }
 
@@ -105,7 +105,7 @@ void PreparedStatement::set(const int32 index, const uint8 value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_TINY;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = true;
 
 }
@@ -118,12 +118,12 @@ void PreparedStatement::set(const int32 index, const int16 value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_SHORT;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = false;
 
 }
 
-void PreparedStatement::set(cosnt int32 index, const uint16 value)
+void PreparedStatement::set(const int32 index, const uint16 value)
 {
   if ( index >= _param_cnt ) {
     std::cout << "PreparedStatement::set. index too large:" << index << std::endl;
@@ -131,7 +131,7 @@ void PreparedStatement::set(cosnt int32 index, const uint16 value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_SHORT;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = true;
 
 }
@@ -144,7 +144,7 @@ void PreparedStatement::set(const int32 index, const int32 value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_LONG;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = false;
 
 }
@@ -157,7 +157,7 @@ void PreparedStatement::set(const int32 index, const uint32 value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_LONG;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = true;
 
 }
@@ -170,7 +170,7 @@ void PreparedStatement::set(const int32 index, const int64 value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_LONGLONG;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = false;
 
 }
@@ -183,7 +183,7 @@ void PreparedStatement::set(const int32 index, const uint64 value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_LONGLONG;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = true;
 
 }
@@ -196,7 +196,7 @@ void PreparedStatement::set(const int32 index, const float value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_FLOAT;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = false;
 
 }
@@ -209,7 +209,7 @@ void PreparedStatement::set(const int32 index, const double value)
   }
 
   _bind[index].buffer_type = MYSQL_TYPE_DOUBLE;
-  _bind[index].buffer = &value;
+  _bind[index].buffer = (void*)&value;
   _bind[index].is_unsigned = false;
 
 }

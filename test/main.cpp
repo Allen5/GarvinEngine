@@ -1,10 +1,8 @@
 
-#include <iostream>
-
-using namespace std;
+#include <stdio.h>
 
 int main(int argc, char** argv)
 {
-	
-	return 0;
+  printf("test start...\n");
+  return 0;
 }

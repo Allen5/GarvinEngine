@@ -42,7 +42,7 @@ private: cls(const cls& var) { \
   memset((void*)this, 0, sizeof(*this)); \
   memcpy((void*)this, (void*)&var, sizeof(var)); \
 } \
-private: cls& operator = (const cls&) { \
+private: cls& operator = (const cls& var) { \
   if (&var == this) return *this; \
   memset((void*)this, 0, sizeof(*this)); \
   memcpy((void*)this, (void*)&var, sizeof(var)); \
@@ -81,7 +81,7 @@ private: tpp* _#ppt; \
 public: void ppt(tpp* val) { _##ppt = val; } \
 public: tpp* ppt() { return _##ppt; }
 
-//todo: 此处需要补上常量指针，以及只读只写等情况。日后根据实际项目需求进行补充
+//TODO(allenlike@gmail): 此处需要补上常量指针，以及只读只写等情况。日后根据实际项目需求进行补充
 
 /**
  * 设置和返回引用类型的变量
@@ -92,4 +92,4 @@ private: tpp& _##ppt; \
 public: void ppt(tpp& val) { _##ppt = val; } \
 public: tpp& ppt() { return _##ppt; }
 
-//todo: 此处需要补上常量引用，以及只读只写等情况。日后根据实际项目需求进行补充
+//TODO(allenlike@gmail): 此处需要补上常量引用，以及只读只写等情况。日后根据实际项目需求进行补充

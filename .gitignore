@@ -3,3 +3,8 @@ ipch/
 GarvinEngine.sdf
 *.*~
 *.o
+build/*.*
+build/CMakeFiles
+build/MakeFile
+
+

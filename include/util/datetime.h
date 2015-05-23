@@ -33,12 +33,12 @@ class Datetime
 
  private:
 
-  MEMBER_VARIBLE(uint64, timestamp);
-  MEMBER_VARIBLE(uint16, year);
-  MEMBER_VARIBLE(uint16, month);
-  MEMBER_VARIBLE(uint16, day);
-  MEMBER_VARIBLE(uint16, hour);
-  MEMBER_VARIBLE(uint16, minute);
-  MEMBER_VARIBLE(uint16, second);
+  MEMBER_VARIABLE(uint64, timestamp);
+  MEMBER_VARIABLE(uint16, year);
+  MEMBER_VARIABLE(uint16, month);
+  MEMBER_VARIABLE(uint16, day);
+  MEMBER_VARIABLE(uint16, hour);
+  MEMBER_VARIABLE(uint16, minute);
+  MEMBER_VARIABLE(uint16, second);
 
 };

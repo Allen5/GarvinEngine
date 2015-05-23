@@ -14,7 +14,7 @@ class ResultSet
 {
 
  public:
-  ResultSet();
+  explicit ResultSet(MYSQL_RES* resule);
   virtual ~ResultSet();
 
  public:
@@ -30,7 +30,7 @@ class ResultSet
   uint8 getUInt8(const char* field);
 
   int16 getInt16(const char* field);
-  uint16 getInt16(const char* field);
+  uint16 getUInt16(const char* field);
 
   int32 getInt32(const char* field);
   uint32 getUInt32(const char* field);
@@ -44,6 +44,7 @@ class ResultSet
   std::string getString(const char* field);
   
  private:
+  bool _init(MYSQL_RES* result);
   int32 _get_index(const char* key);
   
  private:

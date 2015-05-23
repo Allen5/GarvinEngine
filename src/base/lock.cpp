@@ -9,7 +9,7 @@ CLock::CLock()
     return ;
   }
 #else
-  pthread_mutex_init(_mutex); //普通锁，后期可根据需求进行调整
+  pthread_mutex_init(_mutex,NULL); //普通锁，后期可根据需求进行调整
 #endif
 }
 
@@ -44,7 +44,7 @@ void CLock::unLock()
 
 bool CLock::tryLock()
 {
-  return pthread_mutex_trylock() != EBUSY;
+  return pthread_mutex_trylock(_mutex) != EBUSY;
 }
 
 #endif

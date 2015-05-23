@@ -32,13 +32,13 @@ class DBConn
   /**
    * 执行查询语句，并且返回结果集
    */
-  ResultSet* query(const string& sql);
+  ResultSet* query(const std::string& sql);
 
   /**
    * 执行非查询语句,返回执行是否成功
    * @return {true: success, false: failed}
    */
-  bool execute(const string& sql);
+  bool execute(const std::string& sql);
 
  private:
 

@@ -1,5 +1,6 @@
 
-#pragma once
+#ifndef GARVINENGINE_UTIL_XSTRING_H
+#define GARVINENGINE_UTIL_XSTRING_H
 
 /**
  * 字符串类，用于封装

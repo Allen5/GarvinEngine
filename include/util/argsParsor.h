@@ -54,7 +54,7 @@ class ArgsParsor
    * @param int8** args;
    * @return void
    */
-  void init(int32 argc, const int8** args)
+  inline void init(int32 argc, char** args)
   {
     _argc = argc;
     _args = args;
@@ -62,5 +62,5 @@ class ArgsParsor
 
  private:
   int32  _argc;
-  int8** _args;
+  char** _args;
 };

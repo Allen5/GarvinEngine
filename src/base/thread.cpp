@@ -1,10 +1,6 @@
 
 #include <base/thread.h>
 
-using namespace GarvinEngine;
-using namespace GarvinEngine::Util;
-
-
 void Thread::start()
 {
 	_start();
