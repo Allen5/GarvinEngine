@@ -1,0 +1,25 @@
+
+##unit test project
+
+cmake_minimum_required(VERSION 3.2)
+
+PROJECT(UnitTest)
+
+MESSAGE(status " this is SOURCE dir : " ${PROJECT_SOURCE_DIR})
+MESSAGE(status " this is BINARY dir : " ${PROJECT_BINARY_DIR})
+
+#include libraries
+INCLUDE_DIRECTORIES(/usr/local/gtest/include ${PROJECT_SOURCE_DIR}/../include)
+LINK_DIRECTORIES(/usr/local/gtest/lib ${PROJECT_SOURCE_DIR}/../lib)
+
+#src list
+SET(MAIN_SRC ${PROJECT_SOURCE_DIR}/src/main.cpp)
+AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}/src/base BASE_SRC_LIST)
+AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}/src/database DATABASE_SRC_LIST)
+AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}/src/network NETWORK_SRC_LIST)
+AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}/src/util UTIL_SRC_LIST)
+
+
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+ADD_EXECUTABLE(unit_test ${MAIN_SRC} ${BASE_SRC_LIST} ${DATABSE_SRC_LIST} ${NETWORK_SRC_LIST} ${UTIL_SRC_LIST})
+TARGET_LINK_LIBRARIES(unit_test gtest garvinengine)

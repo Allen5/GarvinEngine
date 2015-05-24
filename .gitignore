@@ -6,5 +6,8 @@ GarvinEngine.sdf
 build/*.*
 build/CMakeFiles
 build/MakeFile
+test/build/*.*
+test/build/CMakeFiles
+test/build/MakeFile
 
 
