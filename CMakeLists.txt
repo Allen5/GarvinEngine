@@ -5,7 +5,7 @@ PROJECT(GarvinEngine)
 
 #set version
 SET(LIBAPI_VERSION 0)
-SET(LIBITR_VERSION 1)
+SET(LIBITR_VERSION 2)
 
 MESSAGE(status " this is SOURCE dir : " ${PROJECT_SOURCE_DIR})
 MESSAGE(status " this is BINARY dir : " ${PROJECT_BINARY_DIR})

@@ -1,8 +1,8 @@
 
 #include <util/xstring.h>
 
-#include <sstream>
 #include <regex>
+#include <cstdlib> //use c++11x attribute stoi,stol,stoul,stoll,stoull,stof,stod
 
 using namespace std;
 
@@ -23,200 +23,140 @@ bool XString::_checkNumber(std::string str)
 void XString::translate(const std::string& from, int8& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stoi(from);
 }
 
 void XString::translate(const std::string& from, uint8& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stoi(from);
 }
 
 void XString::translate(const std::string& from, int16& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stoi(from);
 }
 
 void XString::translate(const std::string& from, uint16& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stoi(from);
 }
 
 void XString::translate(const std::string& from, int32& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stol(from);
 }
 
 void XString::translate(const std::string& from, uint32& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stoul(from);
 }
 
 void XString::translate(const std::string& from, int64& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stoll(from);
 }
 
 void XString::translate(const std::string& from, uint64& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stoull(from);
 }
 
 void XString::translate(const std::string& from, float& to)
 {
 	if (!_checkNumber(from)) { to = 0.0f; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stof(from);
 }
 
 void XString::translate(const std::string& from, double& to)
 {
 	if (!_checkNumber(from)) { to = 0; return; }
-
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
+	to = stod(from);
 }
 
 std::string XString::toString(const int8& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%d", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const uint8& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%u", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const int16& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%d", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const uint16& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%u", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const int32& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%ld", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const uint32& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%lu", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const int64& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%lld", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const uint64& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%llu", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const float& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%f", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 
 std::string XString::toString(const double& from)
 {
-	std::string to;
-	stringstream ss;
-	ss << from;
-	ss >> to;
-	ss.clear();
-	return to;
+  char buf[128] = {0};
+  snprintf(buf, 128, "%lf", from);
+  string ret(buf, strlen(buf));
+  return ret;
 }
 

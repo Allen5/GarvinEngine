@@ -3,10 +3,11 @@
 #define GARVINENGINE_UTIL_XSTRING_H
 
 /**
- * 字符串类，用于封装
- * string, char* 到 int8, uint8, int16, uint16, int32, uint32, int64,uint64,float,double
- * 的转换
- * 以及字符串从utf8 -> gbk, gkb->utf8的转换
+ * 用于处理string 到 int,double,float之间类型的转换
+ * 目前可支持10进制的string，需要修改正则表达式以支持16进制，8进制的string内容。
+ * 将于2015.05.26前完成，并完成相关测试案例
+ * @Author : Allen.Wu(allenlikeu@gmail.com)
+ * @Date : 2015.05.24
  */
 
 #include <public.h>
