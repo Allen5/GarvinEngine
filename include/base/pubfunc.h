@@ -33,8 +33,8 @@
  * 单例声明
  * note: restrictly speeking, singleton could not be inherrited or copied or assigned;
  */
-#undef SINGLETON_DECALRE
-#define SINGLETON_DECALRE(cls) \
+#undef SINGLETON_DECLARE
+#define SINGLETON_DECLARE(cls) \
 private: static cls * _instance; \
 private: cls(){ memset((void*)this, 0, sizeof(*this)); }	\
 private: cls(const cls& var) { \
@@ -73,7 +73,7 @@ private: tpp _##ppt; \
 public: tpp ppt() { return _##ppt; }
 
 /**
- * 设置和返回指针类型的变量
+ * 引用和返回指针类型的变量
  */
 #undef MEMBER_POINT_VARIABLE
 #define MEMBER_POINT_VARIABLE (tpp, ppt) \

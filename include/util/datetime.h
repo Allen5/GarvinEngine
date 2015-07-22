@@ -11,34 +11,33 @@
 class Datetime
 {
   
- public:
+public:  
+    Datetime();
+    virtual ~Datetime();
+
+public:
   
-  Datetime();
-  virtual ~Datetime();
+    //获取日期字符串，格式为YYYY-MM-dd
+    std::string getDate();
 
- public:
-  
-  //获取日期字符串，格式为YYYY-MM-dd
-  std::string getDate();
+    //获取时间字符串，格式为HH:MM:SS
+    std::string getTime();
 
-  //获取时间字符串，格式为HH:MM:SS
-  std::string getTime();
+    //获取日期时间字符串，格式为 YYYY-MM-dd HH:MM:SS
+    std::string getDateTime();
 
-  //获取日期时间字符串，格式为 YYYY-MM-dd HH:MM:SS
-  std::string getDateTime();
+private:
 
- private:
+    void _maketime(time_t now);
 
-  void _maketime(time_t now);
+private:
 
- private:
-
-  MEMBER_VARIABLE(uint64, timestamp);
-  MEMBER_VARIABLE(uint16, year);
-  MEMBER_VARIABLE(uint16, month);
-  MEMBER_VARIABLE(uint16, day);
-  MEMBER_VARIABLE(uint16, hour);
-  MEMBER_VARIABLE(uint16, minute);
-  MEMBER_VARIABLE(uint16, second);
+    MEMBER_VARIABLE(uint64, timestamp);
+    MEMBER_VARIABLE(uint16, year);
+    MEMBER_VARIABLE(uint16, month);
+    MEMBER_VARIABLE(uint16, day);
+    MEMBER_VARIABLE(uint16, hour);
+    MEMBER_VARIABLE(uint16, minute);
+    MEMBER_VARIABLE(uint16, second);
 
 };
