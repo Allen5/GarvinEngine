@@ -13,43 +13,43 @@
 
 class DBConn
 {
- public:
-  DBConn();
-  virtual ~DBConn();
+public:
+    DBConn();
+    virtual ~DBConn();
   
- public:
+public:
 
-  /**
-   * 初始化mysql
-   * @param const char* host, mysql 的ip地址
-   * @param const int32 port, mysql 的端口
-   * @param const char* username, mysql的用户名
-   * @param const char* password, mysql的密码
-   * @param const char* database, mysql的数据库名
-   */
-  void init(const char* host, const int32* port, const char* username, const char* password, const char* database);
+    /**
+     * 初始化mysql
+     * @param const char* host, mysql 的ip地址
+     * @param const int32 port, mysql 的端口
+     * @param const char* username, mysql的用户名
+     * @param const char* password, mysql的密码
+     * @param const char* database, mysql的数据库名
+     */
+    void init(const char* host, const int32* port, const char* username, const char* password, const char* database);
 
-  /**
-   * 执行查询语句，并且返回结果集
-   */
-  ResultSet* query(const std::string& sql);
+    /**
+     * 执行查询语句，并且返回结果集
+     */
+    ResultSet* query(const std::string& sql);
 
-  /**
-   * 执行非查询语句,返回执行是否成功
-   * @return {true: success, false: failed}
-   */
-  bool execute(const std::string& sql);
+    /**
+     * 执行非查询语句,返回执行是否成功
+     * @return {true: success, false: failed}
+     */
+    bool execute(const std::string& sql);
 
- private:
+private:
 
-  MYSQL* _mysql;
+    MYSQL* _mysql;
 
-  char* _host;
-  int32 _port;
+    char* _host;
+    int32 _port;
   
-  char* _username;
-  char* _database;
-  char* _password;
+    char* _username;
+    char* _database;
+    char* _password;
   
 };
 
