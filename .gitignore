@@ -9,5 +9,6 @@ build/MakeFile
 test/build/*.*
 test/build/CMakeFiles
 test/build/MakeFile
+proj/
 
 
