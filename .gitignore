@@ -1,14 +1,8 @@
-Debug/
-ipch/
-GarvinEngine.sdf
-*.*~
+*.*
 *.o
 build/*.*
 build/CMakeFiles
 build/MakeFile
-test/build/*.*
-test/build/CMakeFiles
-test/build/MakeFile
 proj/
 
 
